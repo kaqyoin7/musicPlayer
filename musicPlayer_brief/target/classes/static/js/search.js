@@ -97,7 +97,7 @@ class SearchManager {
                 `;
 
                 suggestionItem.addEventListener('click', () => {
-                    window.location.href = `/search/page?keyword=${encodeURIComponent(song.name)}&type=song`;
+                    window.location.href = `/search/detail?keyword=${encodeURIComponent(song.name)}&type=song&page=1`;
                 });
 
                 this.searchSuggestions.appendChild(suggestionItem);
@@ -119,7 +119,7 @@ class SearchManager {
                 `;
 
                 suggestionItem.addEventListener('click', () => {
-                    window.location.href = `/search/page?keyword=${encodeURIComponent(singer.name)}&type=singer`;
+                    window.location.href = `/search/detail?keyword=${encodeURIComponent(singer.name)}&type=singer&page=1`;
                 });
 
                 this.searchSuggestions.appendChild(suggestionItem);

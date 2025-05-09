@@ -6,24 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="ba6094e3-7627-4f07-a1e1-6e9213537b19" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/musicPlayer_brief/musicPlayer_brief/src/main/java/fm/fulin/app/SearchController.java" beforeDir="false" afterPath="$PROJECT_DIR$/musicPlayer_brief/musicPlayer_brief/src/main/java/fm/fulin/app/control/SearchController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/musicPlayer_brief/musicPlayer_brief/src/main/java/fm/fulin/service/impl/SingerServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/musicPlayer_brief/musicPlayer_brief/src/main/java/fm/fulin/service/impl/SingerServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/musicPlayer_brief/musicPlayer_brief/src/main/java/fm/fulin/spider/SubjectSpider.java" beforeDir="false" afterPath="$PROJECT_DIR$/musicPlayer_brief/musicPlayer_brief/src/main/java/fm/fulin/spider/SubjectSpider.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/musicPlayer_brief/musicPlayer_brief/src/main/resources/static/css/search.css" beforeDir="false" afterPath="$PROJECT_DIR$/musicPlayer_brief/musicPlayer_brief/src/main/resources/static/css/search.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/musicPlayer_brief/musicPlayer_brief/src/main/resources/static/js/search.js" beforeDir="false" afterPath="$PROJECT_DIR$/musicPlayer_brief/musicPlayer_brief/src/main/resources/static/js/search.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/musicPlayer_brief/musicPlayer_brief/src/main/resources/static/styles/layout.css" beforeDir="false" afterPath="$PROJECT_DIR$/musicPlayer_brief/musicPlayer_brief/src/main/resources/static/styles/layout.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/musicPlayer_brief/musicPlayer_brief/src/main/resources/templates/layout.html" beforeDir="false" afterPath="$PROJECT_DIR$/musicPlayer_brief/musicPlayer_brief/src/main/resources/templates/layout.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/musicPlayer_brief/musicPlayer_brief/src/main/resources/templates/player.html" beforeDir="false" afterPath="$PROJECT_DIR$/musicPlayer_brief/musicPlayer_brief/src/main/resources/templates/player.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/musicPlayer_brief/musicPlayer_brief/src/main/resources/templates/search.html" beforeDir="false" afterPath="$PROJECT_DIR$/musicPlayer_brief/musicPlayer_brief/src/main/resources/templates/search.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/musicPlayer_brief/musicPlayer_brief/target/classes/fm/fulin/app/SearchController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/musicPlayer_brief/musicPlayer_brief/target/classes/fm/fulin/service/impl/SingerServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/musicPlayer_brief/musicPlayer_brief/target/classes/fm/fulin/service/impl/SingerServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/musicPlayer_brief/musicPlayer_brief/target/classes/fm/fulin/spider/SubjectSpider.class" beforeDir="false" afterPath="$PROJECT_DIR$/musicPlayer_brief/musicPlayer_brief/target/classes/fm/fulin/spider/SubjectSpider.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/musicPlayer_brief/musicPlayer_brief/target/classes/static/css/search.css" beforeDir="false" afterPath="$PROJECT_DIR$/musicPlayer_brief/musicPlayer_brief/target/classes/static/css/search.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/musicPlayer_brief/musicPlayer_brief/target/classes/static/js/search.js" beforeDir="false" afterPath="$PROJECT_DIR$/musicPlayer_brief/musicPlayer_brief/target/classes/static/js/search.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/musicPlayer_brief/musicPlayer_brief/target/classes/static/styles/layout.css" beforeDir="false" afterPath="$PROJECT_DIR$/musicPlayer_brief/musicPlayer_brief/target/classes/static/styles/layout.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/musicPlayer_brief/musicPlayer_brief/target/classes/templates/layout.html" beforeDir="false" afterPath="$PROJECT_DIR$/musicPlayer_brief/musicPlayer_brief/target/classes/templates/layout.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/musicPlayer_brief/musicPlayer_brief/target/classes/templates/player.html" beforeDir="false" afterPath="$PROJECT_DIR$/musicPlayer_brief/musicPlayer_brief/target/classes/templates/player.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/musicPlayer_brief/musicPlayer_brief/target/classes/templates/search.html" beforeDir="false" afterPath="$PROJECT_DIR$/musicPlayer_brief/musicPlayer_brief/target/classes/templates/search.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/player_log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/player_log.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -124,7 +106,7 @@
       <workItem from="1744540763468" duration="616000" />
       <workItem from="1745805533778" duration="1509000" />
       <workItem from="1746529663846" duration="1515000" />
-      <workItem from="1746684204875" duration="29755000" />
+      <workItem from="1746684204875" duration="31738000" />
     </task>
     <servers />
   </component>

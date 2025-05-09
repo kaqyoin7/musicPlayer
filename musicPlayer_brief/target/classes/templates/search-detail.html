@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>搜索结果 - 音乐播放器</title>
+    <link rel="stylesheet" href="/css/common.css" />
+    <link rel="stylesheet" href="/css/search-detail.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <div class="search-detail-header">
+        <h2>搜索结果</h2>
+        <div class="search-info">
+          <span class="keyword" th:text="${keyword}"></span>
+          <span
+            class="type"
+            th:text="${type == 'song' ? '歌曲' : '歌手'}"
+          ></span>
+        </div>
+      </div>
+
+      <!-- 歌曲搜索结果 -->
+      <div class="search-results" th:if="${type == 'song'}">
+        <div class="song-list">
+          <div class="song-item" th:each="song : ${songs}">
+            <div class="song-cover">
+              <img th:src="${song.cover}" alt="歌曲封面" />
+            </div>
+            <div class="song-info">
+              <h3 class="song-name" th:text="${song.name}"></h3>
+              <p class="singer-name" th:text="${song.singerIds}"></p>
+            </div>
+            <div class="song-actions">
+              <button class="play-btn" th:data-song-id="${song.id}">
+                <i class="fas fa-play"></i> 播放
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 歌手搜索结果 -->
+      <div class="search-results" th:if="${type == 'singer'}">
+        <div class="singer-list">
+          <div class="singer-item" th:each="singer : ${singers}">
+            <div class="singer-avatar">
+              <img th:src="${singer.avatar}" alt="歌手头像" />
+            </div>
+            <div class="singer-info">
+              <h3 class="singer-name" th:text="${singer.name}"></h3>
+            </div>
+            <div class="singer-actions">
+              <button class="view-btn" th:data-singer-id="${singer.id}">
+                <i class="fas fa-user"></i> 查看详情
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 分页 -->
+      <div class="pagination" th:if="${totalPages > 1}">
+        <ul>
+          <li th:class="${currentPage == 1 ? 'disabled' : ''}">
+            <a
+              th:if="${currentPage > 1}"
+              th:href="@{/search/detail(keyword=${keyword},type=${type},page=${currentPage - 1})}"
+              >上一页</a
+            >
+            <span th:unless="${currentPage > 1}">上一页</span>
+          </li>
+          <li
+            th:each="i : ${#numbers.sequence(1, totalPages)}"
+            th:class="${currentPage == i ? 'active' : ''}"
+          >
+            <a
+              th:href="@{/search/detail(keyword=${keyword},type=${type},page=${i})}"
+              th:text="${i}"
+            ></a>
+          </li>
+          <li th:class="${currentPage == totalPages ? 'disabled' : ''}">
+            <a
+              th:if="${currentPage < totalPages}"
+              th:href="@{/search/detail(keyword=${keyword},type=${type},page=${currentPage + 1})}"
+              >下一页</a
+            >
+            <span th:unless="${currentPage < totalPages}">下一页</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <script src="/js/search-detail.js"></script>
+  </body>
+</html>

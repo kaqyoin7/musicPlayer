@@ -41,4 +41,33 @@ public class SearchController {
         LOG.info("search request: {}", request);
         return searchService.search(request);
     }
+
+    @GetMapping("/detail")
+    public String searchDetail(@RequestParam String keyword,
+                             @RequestParam(required = false, defaultValue = "song") String type,
+                             @RequestParam(required = false, defaultValue = "1") int page,
+                             Model model) {
+        LOG.info("search detail request - keyword: {}, type: {}, page: {}", keyword, type, page);
+        
+        SearchRequest request = new SearchRequest();
+        request.setKeyword(keyword.trim());
+        request.setPage(page);
+        request.setSize(10);
+        request.setType(type);
+        
+        SearchResult result = searchService.search(request);
+        
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("type", type);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", (int) Math.ceil((double) result.getTotal() / request.getSize()));
+        
+        if ("song".equals(type)) {
+            model.addAttribute("songs", result.getSongs());
+        } else {
+            model.addAttribute("singers", result.getSingers());
+        }
+        
+        return "search-detail";
+    }
 } 
