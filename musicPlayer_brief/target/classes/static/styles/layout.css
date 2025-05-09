@@ -18,6 +18,11 @@ a {
   cursor: pointer;
 }
 
+a:hover {
+  color: #4a4a4a;
+  text-decoration: underline;
+}
+
 p.beian {
   color: #8e8d8f;
   font-weight: normal;

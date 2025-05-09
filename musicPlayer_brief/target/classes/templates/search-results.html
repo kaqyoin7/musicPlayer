@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>搜索结果 - 音乐播放器</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <link rel="stylesheet" href="/css/search.css" />
+  </head>
+  <body>
+    <div class="container mt-4">
+      <h2 class="mb-4">搜索结果: <span th:text="${query}"></span></h2>
+
+      <!-- 搜索结果标签页 -->
+      <ul class="nav nav-tabs mb-4" id="searchTabs" role="tablist">
+        <li class="nav-item">
+          <a
+            class="nav-link active"
+            id="songs-tab"
+            data-toggle="tab"
+            href="#songs"
+            role="tab"
+            >歌曲</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            id="artists-tab"
+            data-toggle="tab"
+            href="#artists"
+            role="tab"
+            >歌手</a
+          >
+        </li>
+      </ul>
+
+      <!-- 标签页内容 -->
+      <div class="tab-content" id="searchTabContent">
+        <!-- 歌曲搜索结果 -->
+        <div class="tab-pane fade show active" id="songs" role="tabpanel">
+          <div class="search-results" th:if="${not #lists.isEmpty(songs)}">
+            <div class="song-item" th:each="song : ${songs}">
+              <div class="song-info">
+                <img th:src="${song.coverUrl}" alt="封面" class="song-cover" />
+                <div class="song-details">
+                  <h5 th:text="${song.name}"></h5>
+                  <p th:text="${song.artist}"></p>
+                </div>
+              </div>
+              <div class="song-actions">
+                <button
+                  class="btn btn-primary btn-sm play-btn"
+                  th:data-song-id="${song.id}"
+                >
+                  <i class="fas fa-play"></i> 播放
+                </button>
+                <button
+                  class="btn btn-outline-primary btn-sm collect-btn"
+                  th:data-song-id="${song.id}"
+                >
+                  <i class="fas fa-heart"></i> 收藏
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="no-results" th:if="${#lists.isEmpty(songs)}">
+            <p>未找到相关歌曲</p>
+          </div>
+        </div>
+
+        <!-- 歌手搜索结果 -->
+        <div class="tab-pane fade" id="artists" role="tabpanel">
+          <div class="search-results" th:if="${not #lists.isEmpty(artists)}">
+            <div class="artist-item" th:each="artist : ${artists}">
+              <div class="artist-info">
+                <img
+                  th:src="${artist.avatarUrl}"
+                  alt="头像"
+                  class="artist-avatar"
+                />
+                <div class="artist-details">
+                  <h5 th:text="${artist.name}"></h5>
+                  <p th:text="${artist.description}"></p>
+                </div>
+              </div>
+              <div class="artist-actions">
+                <button
+                  class="btn btn-primary btn-sm view-btn"
+                  th:data-artist-id="${artist.id}"
+                >
+                  查看详情
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="no-results" th:if="${#lists.isEmpty(artists)}">
+            <p>未找到相关歌手</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 分页 -->
+      <nav th:if="${totalPages > 1}">
+        <ul class="pagination justify-content-center">
+          <li
+            class="page-item"
+            th:classappend="${currentPage == 1} ? 'disabled'"
+          >
+            <a
+              class="page-link"
+              th:href="@{/search(q=${query}, page=${currentPage - 1})}"
+              >上一页</a
+            >
+          </li>
+          <li
+            class="page-item"
+            th:each="i : ${#numbers.sequence(1, totalPages)}"
+            th:classappend="${i == currentPage} ? 'active'"
+          >
+            <a
+              class="page-link"
+              th:href="@{/search(q=${query}, page=${i})}"
+              th:text="${i}"
+            ></a>
+          </li>
+          <li
+            class="page-item"
+            th:classappend="${currentPage == totalPages} ? 'disabled'"
+          >
+            <a
+              class="page-link"
+              th:href="@{/search(q=${query}, page=${currentPage + 1})}"
+              >下一页</a
+            >
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/search-results.js"></script>
+  </body>
+</html>

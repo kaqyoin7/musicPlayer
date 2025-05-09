@@ -1,13 +1,40 @@
 .search-container {
-  max-width: 800px;
-  margin: 50px auto;
+  position: relative;
+  width: 400px;
+  margin: 0 auto;
 }
 
 .search-box {
   position: relative;
+  width: 100%;
+}
+
+.search-box input {
+  width: 100%;
+  padding: 8px 35px 8px 15px;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.search-box input:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.search-icon {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #666;
+  pointer-events: none;
 }
 
 .search-suggestions {
+  display: none;
   position: absolute;
   top: 100%;
   left: 0;
@@ -15,19 +42,149 @@
   background: white;
   border: 1px solid #ddd;
   border-radius: 4px;
+  margin-top: 5px;
+  max-height: 300px;
+  overflow-y: auto;
   z-index: 1000;
-  display: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.search-suggestion-item {
-  padding: 8px 15px;
+.search-suggestions.active {
+  display: block;
+}
+
+.suggestion-item {
+  padding: 10px 15px;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: background-color 0.2s;
 }
 
-.search-suggestion-item:hover {
-  background: #f5f5f5;
+.suggestion-item:hover {
+  background-color: #f8f9fa;
 }
 
+.suggestion-item .item-icon {
+  margin-right: 10px;
+  color: #666;
+}
+
+.suggestion-item .item-info {
+  flex: 1;
+}
+
+.suggestion-item .item-title {
+  font-weight: 500;
+  color: #333;
+}
+
+.suggestion-item .item-subtitle {
+  font-size: 12px;
+  color: #666;
+}
+
+/* 分页样式 */
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  padding: 10px;
+}
+
+.pagination .page-item {
+  margin: 0 5px;
+}
+
+.pagination .page-link {
+  color: #007bff;
+  border: 1px solid #dee2e6;
+  padding: 8px 12px;
+  border-radius: 4px;
+}
+
+.pagination .page-item.active .page-link {
+  background-color: #007bff;
+  border-color: #007bff;
+  color: white;
+}
+
+/* 播放器页面搜索框样式 */
+.player-search-box {
+  position: relative;
+  width: 300px;
+  margin: 0 20px;
+}
+
+.player-search-box .form-control {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  border-radius: 20px;
+  padding: 8px 15px;
+}
+
+.player-search-box .form-control:focus {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
+  color: #fff;
+  box-shadow: none;
+}
+
+.player-search-box .form-control::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.player-search-suggestions {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 8px;
+  margin-top: 5px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  max-height: 300px;
+  overflow-y: auto;
+  z-index: 1000;
+}
+
+.player-search-suggestion-item {
+  padding: 10px 15px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.player-search-suggestion-item:last-child {
+  border-bottom: none;
+}
+
+.player-search-suggestion-item:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.player-search-suggestion-item .item-icon {
+  margin-right: 10px;
+  color: #666;
+}
+
+.player-search-suggestion-item .item-content {
+  flex: 1;
+}
+
+.player-search-suggestion-item .item-name {
+  font-weight: 500;
+  color: #333;
+}
+
+.player-search-suggestion-item .item-type {
+  font-size: 12px;
+  color: #666;
+}
+
+/* 搜索结果页面样式 */
 .result-item {
   margin-bottom: 20px;
   padding: 15px;
@@ -37,10 +194,6 @@
 
 .result-item:hover {
   background: #f9f9f9;
-}
-
-.pagination {
-  margin-top: 20px;
 }
 
 .singer-avatar {
@@ -59,4 +212,182 @@
 
 .action-buttons {
   margin-top: 10px;
+}
+
+/* 播放器头部搜索框样式 */
+.search-container input[type="search"] {
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 14px;
+  padding: 5px 10px;
+  width: 150px;
+  transition: width 0.3s ease;
+}
+
+.search-container input[type="search"]:focus {
+  width: 200px;
+  outline: none;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+.search-container .player-search-suggestions {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 4px;
+  margin-top: 5px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  max-height: 300px;
+  overflow-y: auto;
+  z-index: 1000;
+  display: none;
+}
+
+.search-container .player-search-suggestion-item {
+  padding: 10px 15px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.search-container .player-search-suggestion-item:last-child {
+  border-bottom: none;
+}
+
+.search-container .player-search-suggestion-item:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.search-container .player-search-suggestion-item .item-icon {
+  margin-right: 10px;
+  color: #666;
+}
+
+.search-container .player-search-suggestion-item .item-content {
+  flex: 1;
+}
+
+.search-container .player-search-suggestion-item .item-name {
+  font-weight: 500;
+  color: #333;
+}
+
+.search-container .player-search-suggestion-item .item-type {
+  font-size: 12px;
+  color: #666;
+}
+
+/* 头部搜索框样式 */
+.header .search-container {
+  position: relative;
+  display: inline-block;
+}
+
+.header .search-container input[type="search"] {
+  background: transparent;
+  border: none;
+  color: #8a959e;
+  font-size: 14px;
+  padding: 5px 10px;
+  width: 150px;
+  transition: width 0.3s ease;
+}
+
+.header .search-container input[type="search"]:focus {
+  width: 200px;
+  outline: none;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+.header .search-container .player-search-suggestions {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 4px;
+  margin-top: 5px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  max-height: 300px;
+  overflow-y: auto;
+  z-index: 1000;
+  display: none;
+}
+
+.header .search-container .player-search-suggestion-item {
+  padding: 10px 15px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.header .search-container .player-search-suggestion-item:last-child {
+  border-bottom: none;
+}
+
+.header .search-container .player-search-suggestion-item:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.header .search-container .player-search-suggestion-item .item-icon {
+  margin-right: 10px;
+  color: #666;
+}
+
+.header .search-container .player-search-suggestion-item .item-content {
+  flex: 1;
+}
+
+.header .search-container .player-search-suggestion-item .item-name {
+  font-weight: 500;
+  color: #333;
+}
+
+.header .search-container .player-search-suggestion-item .item-type {
+  font-size: 12px;
+  color: #666;
+}
+
+/* 为layout.html中的搜索框添加特定样式 */
+.header .left .search-container {
+  width: 300px;
+  margin: 0;
+}
+
+.header .left .search-container .search-box input {
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 14px;
+  padding: 5px 35px 5px 15px;
+  width: 100%;
+  transition: all 0.3s ease;
+}
+
+.header .left .search-container .search-box input:focus {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  outline: none;
+}
+
+.header .left .search-container .search-box input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.header .left .search-container .search-icon {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.header .left .search-container .search-suggestions {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 4px;
+  margin-top: 5px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }

@@ -5,6 +5,11 @@
     <meta name="referrer" content="never" />
     <title>Melodymate</title>
     <link rel="stylesheet" href="/styles/layout.css" />
+    <link rel="stylesheet" href="/css/search.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
   </head>
   <body>
     <div class="header">
@@ -12,13 +17,34 @@
         <div class="slogan"><span class="icon0"></span>An O Fulin Project</div>
         <div class="img"></div>
       </div>
-      <!--finish-->
       <div class="bottom">
         <div class="left">
           <ul>
-            <li class="name"><!--<div class="icon"></div>-->FULIN</li>
-            <li class="search">✎</li>
-            <li><input type="search" placeholder="SEARCH" /></li>
+            <li class="name">FULIN</li>
+            <li class="search-container">
+              <div class="search-box">
+                <input
+                  type="text"
+                  id="searchInput"
+                  class="form-control"
+                  placeholder="搜索歌曲或歌手..."
+                  autocomplete="off"
+                  style="
+                    background: rgba(255, 255, 255, 0.1);
+                    border: 1px solid #842828;
+                    color: #842828;
+                    font-size: 14px;
+                    padding: 5px 35px 5px 15px;
+                    width: 100%;
+                    transition: all 0.3s ease;
+                  "
+                />
+                <i class="fas fa-search search-icon" style="color: #842828"></i>
+              </div>
+              <div id="searchSuggestions" class="search-suggestions">
+                <!-- 搜索结果将在这里动态显示 -->
+              </div>
+            </li>
           </ul>
         </div>
         <div class="right">
@@ -59,5 +85,8 @@
         </p>
       </div>
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="/js/search.js"></script>
   </body>
 </html>

@@ -3,39 +3,131 @@ class SearchManager {
         this.currentPage = 1;
         this.currentType = '';
         this.searchTimeout = null;
+        this.searchInput = document.getElementById('searchInput');
+        this.searchSuggestions = document.getElementById('searchSuggestions');
         this.initEventListeners();
     }
 
     initEventListeners() {
-        // 搜索框输入事件
-        $('#searchInput').on('input', () => {
-            clearTimeout(this.searchTimeout);
-            const keyword = $('#searchInput').val().trim();
+        // 搜索框获得焦点时显示建议框
+        this.searchInput.addEventListener('focus', () => {
+            const query = this.searchInput.value.trim();
+            if (query) {
+                this.performSearch(query);
+            }
+        });
+
+        // 点击页面其他地方时隐藏建议框
+        document.addEventListener('click', (e) => {
+            if (!this.searchInput.contains(e.target) && !this.searchSuggestions.contains(e.target)) {
+                this.searchSuggestions.classList.remove('active');
+            }
+        });
+
+        // 输入搜索内容时触发搜索
+        this.searchInput.addEventListener('input', () => {
+            const query = this.searchInput.value.trim();
             
-            if (keyword.length > 0) {
+            // 清除之前的定时器
+            clearTimeout(this.searchTimeout);
+            
+            if (query) {
+                // 设置新的定时器，延迟300ms执行搜索
                 this.searchTimeout = setTimeout(() => {
-                    this.search(keyword, 1, '');
+                    this.performSearch(query);
                 }, 300);
             } else {
-                $('#searchSuggestions').hide();
+                this.searchSuggestions.classList.remove('active');
+                this.searchSuggestions.innerHTML = '';
             }
         });
 
-        // 搜索按钮点击事件
-        $('#searchButton').click(() => {
-            const keyword = $('#searchInput').val().trim();
-            if (keyword) {
-                this.search(keyword, 1, this.currentType);
+        // 按下回车键时执行搜索
+        this.searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                const query = this.searchInput.value.trim();
+                if (query) {
+                    window.location.href = `/search/page?keyword=${encodeURIComponent(query)}`;
+                }
             }
         });
+    }
 
-        // 点击建议项
-        $(document).on('click', '.search-suggestion-item', (e) => {
-            const keyword = $(e.target).text();
-            $('#searchInput').val(keyword);
-            $('#searchSuggestions').hide();
-            this.search(keyword, 1, this.currentType);
-        });
+    performSearch(query) {
+        if (!query) {
+            this.searchSuggestions.classList.remove('active');
+            this.searchSuggestions.innerHTML = '';
+            return;
+        }
+
+        fetch(`/search/api?keyword=${encodeURIComponent(query)}&page=1&size=5`)
+            .then(response => response.json())
+            .then(data => {
+                this.displaySuggestions(data);
+            })
+            .catch(error => {
+                console.error('搜索出错:', error);
+                this.searchSuggestions.classList.remove('active');
+                this.searchSuggestions.innerHTML = '';
+            });
+    }
+
+    displaySuggestions(data) {
+        // 清空之前的建议
+        this.searchSuggestions.innerHTML = '';
+        
+        // 检查是否有搜索结果
+        if ((!data.songs || data.songs.length === 0) && (!data.singers || data.singers.length === 0)) {
+            this.searchSuggestions.classList.remove('active');
+            return;
+        }
+
+        // 显示歌曲建议
+        if (data.songs && data.songs.length > 0) {
+            data.songs.forEach(song => {
+                const suggestionItem = document.createElement('div');
+                suggestionItem.className = 'suggestion-item';
+                
+                suggestionItem.innerHTML = `
+                    <i class="fas fa-music item-icon"></i>
+                    <div class="item-info">
+                        <div class="item-title">${song.name}</div>
+                        <div class="item-subtitle">歌曲</div>
+                    </div>
+                `;
+
+                suggestionItem.addEventListener('click', () => {
+                    window.location.href = `/search/page?keyword=${encodeURIComponent(song.name)}&type=song`;
+                });
+
+                this.searchSuggestions.appendChild(suggestionItem);
+            });
+        }
+
+        // 显示歌手建议
+        if (data.singers && data.singers.length > 0) {
+            data.singers.forEach(singer => {
+                const suggestionItem = document.createElement('div');
+                suggestionItem.className = 'suggestion-item';
+                
+                suggestionItem.innerHTML = `
+                    <i class="fas fa-user item-icon"></i>
+                    <div class="item-info">
+                        <div class="item-title">${singer.name}</div>
+                        <div class="item-subtitle">歌手</div>
+                    </div>
+                `;
+
+                suggestionItem.addEventListener('click', () => {
+                    window.location.href = `/search/page?keyword=${encodeURIComponent(singer.name)}&type=singer`;
+                });
+
+                this.searchSuggestions.appendChild(suggestionItem);
+            });
+        }
+
+        // 显示建议框
+        this.searchSuggestions.classList.add('active');
     }
 
     search(keyword, page, type) {
@@ -122,7 +214,7 @@ class SearchManager {
         for (let i = 1; i <= totalPages; i++) {
             $pagination.append(`
                 <li class="page-item ${this.currentPage === i ? 'active' : ''}">
-                    <a class="page-link" href="#" onclick="searchManager.search('${$('#searchInput').val()}', ${i}, '${this.currentType}'); return false;">${i}</a>
+                    <a class="page-link" href="#" onclick="searchManager.search('${this.searchInput.value}', ${i}, '${this.currentType}'); return false;">${i}</a>
                 </li>
             `);
         }
@@ -146,6 +238,6 @@ class SearchManager {
 
 // 初始化搜索管理器
 let searchManager;
-$(document).ready(() => {
+document.addEventListener('DOMContentLoaded', () => {
     searchManager = new SearchManager();
 }); 

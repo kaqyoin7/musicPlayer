@@ -54,9 +54,9 @@ public class SingerServiceImpl implements SingerService {
         try {
             LOG.info("Looking up singer with ID: {}", singerId);
             // 使用Query和Criteria来查询
-//            int idInt = Integer.parseInt(singerId);  // 或 Long.parseLong()，视数据而定
-//            String idString = singerId.replaceAll("[^0-9]", "");
-            int idInt = Integer.parseInt(singerId);
+            String idString = singerId.replaceAll("[^0-9]", "");
+//            int idInt = Integer.parseInt(singerId);
+            int idInt = Integer.parseInt(idString);  // 或 Long.parseLong()，视数据而定
 
             Query query = new Query(Criteria.where("id").is(idInt));
 

@@ -1,67 +1,122 @@
-<div id="player" class="player" th:fragment="player">
-  <link rel="stylesheet" href="/styles/audio.css" />
-  <div class="expand">
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>音乐播放器</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <link rel="stylesheet" href="/css/player.css" />
+    <link rel="stylesheet" href="/css/search.css" />
+  </head>
+  <body>
     <div class="player-container">
-      <div class="qrcode">
-        <img src="../assets/images/skate.png" alt="" />
-        <div class="txt">
-          FULIN<br />
-          让好音乐继续
-        </div>
-      </div>
-      <div class="song-info">
-        <button class="owner"></button>
-        <div id="title" class="title"></div>
-
-        <ul class="disp">
-          <li>
-            <div
-              id="artist"
-              class="artist"
-              th:each="singerItem,sit: ${singers}"
-            >
-              <span></span>
+      <!-- 顶部导航栏 -->
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">音乐播放器</a>
+          <div class="search-container">
+            <div class="search-box">
+              <input
+                type="text"
+                id="searchInput"
+                class="form-control"
+                placeholder="搜索歌曲或歌手..."
+                autocomplete="off"
+              />
+              <i class="fas fa-search search-icon"></i>
             </div>
-          </li>
-          <li>
-            <div class="duration-options">
-              <div class="duration"></div>
+            <div id="searchSuggestions" class="search-suggestions">
+              <!-- 搜索结果将在这里动态显示 -->
+            </div>
+          </div>
+          <div class="navbar-nav ml-auto">
+            <a class="nav-link" href="/collection/list">我的收藏</a>
+            <a class="nav-link" href="/mhz/list">兆赫</a>
+          </div>
+        </div>
+      </nav>
 
-              <div class="options">
-                <button class="lyrics"></button>
-                <button class="download"></button>
-                <button class="share"></button>
+      <!-- 播放器主体内容 -->
+      <div class="player-content">
+        <div id="player" class="player" th:fragment="player">
+          <link rel="stylesheet" href="/styles/audio.css" />
+          <div class="expand">
+            <div class="player-container">
+              <div class="qrcode">
+                <img src="../assets/images/skate.png" alt="" />
+                <div class="txt">
+                  FULIN<br />
+                  让好音乐继续
+                </div>
+              </div>
+              <div class="song-info">
+                <button class="owner"></button>
+                <div id="title" class="title"></div>
+
+                <ul class="disp">
+                  <li>
+                    <div
+                      id="artist"
+                      class="artist"
+                      th:each="singerItem,sit: ${singers}"
+                    >
+                      <span></span>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="duration-options">
+                      <div class="duration"></div>
+
+                      <div class="options">
+                        <button class="lyrics"></button>
+                        <button class="download"></button>
+                        <button class="share"></button>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+                <audio
+                  id="musicPlayer"
+                  autoplay
+                  controls="controls"
+                  th:src="  ${song.url}"
+                ></audio>
+                <div class="options">
+                  <div>
+                    <button class="star star-collect"></button
+                    ><button class="trash"></button>
+                  </div>
+                  <div>
+                    <button class="list"></button>
+                    <button class="random"></button>
+                    <button class="next"></button>
+                  </div>
+                </div>
+                <div class="hint">
+                  <button class="btn-login">登录/注册</button
+                  ><span>后FULINFM将永久保留你的收听历史与喜好</span>
+                </div>
+              </div>
+              <div class="song-cover">
+                <img id="cover" src="" alt="" />
               </div>
             </div>
-          </li>
-        </ul>
-        <audio
-          id="musicPlayer"
-          autoplay
-          controls="controls"
-          th:src="  ${song.url}"
-        ></audio>
-        <div class="options">
-          <div>
-            <button class="star star-collect"></button
-            ><button class="trash"></button>
+            <button class="btn-shrink"></button>
           </div>
-          <div>
-            <button class="list"></button>
-            <button class="random"></button>
-            <button class="next"></button>
-          </div>
+          <script src="/js/nextMusic.js"></script>
         </div>
-        <div class="hint">
-          <button class="btn-login">登录/注册</button
-          ><span>后FULINFM将永久保留你的收听历史与喜好</span>
-        </div>
-      </div>
-      <div class="song-cover">
-        <img id="cover" src="" alt="" />
       </div>
     </div>
-    <button class="btn-shrink"></button>
-  </div>
-  <script src="/js/nextMusic.js"></script>
-</div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/player.js"></script>
+    <script src="/js/search.js"></script>
+  </body>
+</html>
