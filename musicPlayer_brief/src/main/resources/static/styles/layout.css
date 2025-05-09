@@ -1,0 +1,138 @@
+* {
+  padding: 0px;
+  margin: 0px 0px 0px 0px;
+}
+ul li {
+  list-style: none;
+}
+ul {
+  display: flex;
+  align-items: center;
+}
+p {
+  width: 100%;
+}
+a {
+  color: #828183;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+p.beian {
+  color: #8e8d8f;
+  font-weight: normal;
+  margin-bottom: 5px;
+}
+div.footer {
+  letter-spacing: 1px;
+  text-align: center;
+  width: 100%;
+  /*position: absolute;*/
+  bottom: 0px;
+  padding-bottom: 20px;
+  font-size: 12px;
+}
+.header .top {
+  background-color: #161616;
+  color: #ffffff;
+  height: 40px;
+  display: flex;
+  align-items: center;
+}
+.header .top .slogan {
+  display: flex;
+  float: left;
+  align-items: center;
+  margin-left: 170px;
+  font-weight: 700;
+  font-size: 14px;
+  font-family: 华文新魏;
+}
+
+div.img {
+  width: 20px;
+  height: 20px;
+  margin-left: 987px;
+  background: url("data:image/svg+xml,%3csvg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3e %3cpath d='M4 0H0V4H4V0Z' fill='white'/%3e %3cpath d='M12 0H8V4H12V0Z' fill='white'/%3e %3cpath d='M20 0H16V4H20V0Z' fill='white'/%3e %3cpath d='M4 8H0V12H4V8Z' fill='white'/%3e %3cpath d='M12 8H8V12H12V8Z' fill='white'/%3e %3cpath d='M20 8H16V12H20V8Z' fill='white'/%3e %3cpath d='M4 16H0V20H4V16Z' fill='white'/%3e %3cpath d='M12 16H8V20H12V16Z' fill='white'/%3e %3cpath d='M20 16H16V20H20V16Z' fill='white'/%3e %3c/svg%3e")
+    no-repeat center / contain;
+}
+.header .top .icon0 {
+  display: block;
+  width: 20px;
+  height: 20px;
+  margin-right: 15px;
+  background: url("data:image/svg+xml,%3csvg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3e %3cg clip-path='url(%23clip0_2_15)'%3e %3cpath d='M0 3.33643V4.99999H11.4684L0 16.4684L1.1803 17.6487L15.4926 3.33643H0Z' fill='%23F7B749'/%3e %3cpath d='M17.1561 1.66357L18.829 0H0V1.66357H17.1561Z' fill='%23ED362F'/%3e %3cpath d='M18.3364 2.84387V20H20V1.1803L18.3364 2.84387Z' fill='%2343B85C'/%3e %3cpath d='M16.6729 20V4.51672L2.3606 18.8197L3.54089 20L15 8.54089V20H16.6729Z' fill='%232CB4E2'/%3e %3c/g%3e %3cdefs%3e %3cclipPath id='clip0_2_15'%3e %3crect width='20' height='20' fill='white'/%3e %3c/clipPath%3e %3c/defs%3e %3c/svg%3e")
+    no-repeat center / contain;
+}
+.header .bottom .icon {
+  height: 50px;
+  width: 50px;
+  margin-right: 10px;
+  border-radius: 50%;
+  background: url("https://img.zcool.cn/community/0197f059fa96cfa801202b0cfbd284.jpg@1280w_1l_2o_100sh.jpg")
+    no-repeat center / contain;
+}
+.header .bottom {
+  width: 100%;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  /*margin-top: 10px;*/
+}
+.header .bottom .left {
+  float: left;
+  margin-left: 170px;
+}
+.header .bottom .right {
+  float: right;
+}
+.header .bottom .left .name {
+  display: flex;
+  font-size: 30px;
+  font-weight: 700;
+  font-family: Georgia, serif;
+  margin-right: 15px;
+}
+.header .bottom .right .func {
+  color: #8a959e;
+  font-size: 12px;
+  font-weight: 400;
+  text-transform: uppercase;
+  align-items: center;
+  margin-left: 150px;
+}
+.header .bottom .right .func li {
+  margin-right: 30px;
+}
+.bottom .left .search {
+  padding-left: 15.5px;
+  border-left: 2px solid #8a959e;
+  margin-left: 12px;
+}
+
+input {
+  color: #8a959e;
+  font-size: 8px;
+  padding-left: 5px;
+  margin-left: 5px;
+  border-radius: 20px;
+  outline: none;
+  background-color: #f5f5f5;
+}
+.triangle {
+  font-size: 3px;
+  font-weight: lighter;
+}
+
+.right .func .join {
+  border-left: 2px solid #8a959e;
+  padding-left: 17px;
+  color: #2a4e68;
+  font-weight: 600;
+}
+.right .func .login {
+  background: #2a4e68;
+  padding: 5px 25px;
+  border-radius: 4px;
+  color: #fff;
+}

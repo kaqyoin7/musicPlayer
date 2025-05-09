@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="layout">
+<head>
+
+
+    <meta charset="UTF-8">
+    <meta name="referrer" content="never">
+    <title>layout</title>
+</head>
+<div th:fragment="content">
+
+    <div class="artists-check" th:fragment="content">
+        <div class="account-login">已有账号登录</div>
+        <p class="title">挑选你喜欢的艺术家，开启私人音乐之旅</p>
+
+        <ul class="artists-list">
+            <li th:each="singerItem,sit: ${singers}">
+                <div class="check">
+                <div class="icon" th:style="'background:url(' + ${singerItem.avatar} + ') no-repeat center;background-size: contain;'">
+                    <!-- 选择后，头像上有对勾 -->
+                    <div class="shadow">
+                        <span></span>
+                    </div>
+                </div>
+                </div>
+                <h4 th:text="${singerItem.name}"></h4>
+                <div class="like">喜欢</div>
+            </li>
+        </ul>
+
+        <!-- 换一批 自己搜 -->
+        <div class="search-change">
+            <div class="change">
+                <span class="change-icon"></span>换一批
+            </div>
+            <div class="search">
+                <span class="search-icon"></span>自己搜
+            </div>
+        </div>
+
+        <!-- 跳过选择 -->
+        <a href="index" class="skip">跳过，直接去听歌</a>
+    </div>
+
+    <script src="/js/userguide.js"></script>
+
+</div>
+
+</html>

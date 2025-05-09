@@ -1,0 +1,31 @@
+.background{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    color: #ea114a;
+    opacity: 0.05;
+    font-size: 300px;
+    font-weight: bolder;
+    margin-left: -504px;
+    margin-top: -198px;
+
+    user-seletct: none;
+    -webkit-user-seletct: none;
+    -moz-user-seletct: none;
+
+
+}
+img.music{
+    height: 370px;
+    width: 370px;
+    position: absolute;
+    top: 180px;
+    left:180px;
+}
+img.dance{
+    height: 250px;
+    width: 250px;
+    position: absolute;
+    top: 350px;
+    right:250px;
+}

@@ -1,0 +1,90 @@
+<div class="explore" th:fragment="explore">
+    <ul class="nav">
+        <li tabindex="0" class="item item-selected">
+            <span class="radio-icon"></span>
+            <span class="txt">兆赫</span>
+        </li>
+        <li tabindex="0" class="item">
+            <span class="cd-icon"></span>
+            <a href="/collection"><span class="txt">歌单</span></a>
+        </li>
+    </ul>
+    <div class="mhz">
+        <div class="channel-menu">
+            <div class="item">
+                <div class="play-btn">
+                    <img src="../assets/images/noNet.png">
+                    <div class="play-mask play-mask-playing">
+                        <span class="play-icon"></span>
+                        <span class="playing-icon"></span>
+                    </div>
+                </div>
+                <div class="txt">
+                    <div class="title">
+                        <a href="/index">我的私人兆赫</a>
+                    </div>
+                    <div class="subtitle">FULINFM会根据你的喜好来推荐歌曲，让你与喜欢的音乐不期而遇</div>
+                </div>
+            </div>
+            <div class="item">
+                <div class="play-btn">
+                    <img src="../assets/images/seaImg.png" alt="">
+                    <div class="play-mask">
+                        <div class="mask"></div>
+                        <span class="play-icon"></span>
+                        <span class="playing-icon"></span>
+                    </div>
+                </div>
+                <div class="txt">
+                    <div class="title">
+                        <a href="index">FULIN精选兆赫</a>
+                    </div>
+                    <div class="subtitle">汇聚各种音乐风格的精选兆赫，从这里开始音乐漫游吧</div>
+                </div>
+            </div>
+        </div>
+        <section>
+            <div class="channel-img-title">
+                <div class="txt">从艺术家出发</div>
+                <span class="channel-img-title-icon"></span>
+                <span class="channel-img-title-hint">包含和该艺术家相似的一些艺术家的歌曲</span>
+            </div>
+            <div class="channel-img">
+                <div class="item" th:each="artistItem,ait: ${artistDatas}" th:classappend="${ait.count} > 10 ? 'none':''">
+                    <div class="play-btn" onclick="play()">
+                        <img th:src="${artistItem.cover}" alt="">
+                        <div class="play-mask">
+                            <div class="mask"></div>
+                            <span class="play-icon"></span>
+                            <span class="playing-icon"></span>
+                        </div>
+                    </div>
+                    <div class="txt">
+                        <div class="title">
+                            <a href="/player_artist"  th:text="${artistItem.name}"></a>
+
+                        </div>
+                        <div class="subtitle" th:text="${artistItem.description}"></div>
+                    </div>
+                </div>
+            </div>
+            <button class="loadmore">加载更多兆赫</button>
+        </section>
+        <section>
+            <div class="channel-txt-wrapper" th:each="mhzViewItem,vit: ${mhzViewModels}">
+                <div class="channel-txt-title" th:text="${mhzViewItem.title}"></div>
+                <div class="channel-txt">
+                    <div class="item" th:each="subjectItem,sit: ${mhzViewItem.subjects}">
+                        <div class="txt">
+                            <div class="title">
+                                <a href="/detail" th:text="${subjectItem.name}"><span>MHz</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <script src="/js/explore.js"></script>
+</div>

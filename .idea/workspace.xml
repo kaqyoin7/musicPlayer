@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="ba6094e3-7627-4f07-a1e1-6e9213537b19" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/musicPlayer_brief.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/musicPlayer_brief" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/player_log.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/musicPlayer_brief/src/main/java/fm/fulin/app/control/SingerTestControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/musicPlayer_brief/src/main/java/fm/fulin/app/control/SingerTestControl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/musicPlayer_brief/src/main/java/fm/fulin/app/control/SongTestControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/musicPlayer_brief/src/main/java/fm/fulin/app/control/SongTestControl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/musicPlayer_brief/src/main/java/fm/fulin/app/interceptor/UserInterceptor.java" beforeDir="false" afterPath="$PROJECT_DIR$/musicPlayer_brief/src/main/java/fm/fulin/app/interceptor/UserInterceptor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/musicPlayer_brief/src/main/java/fm/fulin/model/CollectionViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/musicPlayer_brief/src/main/java/fm/fulin/model/CollectionViewModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/musicPlayer_brief/src/main/java/fm/fulin/model/Singer.java" beforeDir="false" afterPath="$PROJECT_DIR$/musicPlayer_brief/src/main/java/fm/fulin/model/Singer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/musicPlayer_brief/src/main/java/fm/fulin/model/Song.java" beforeDir="false" afterPath="$PROJECT_DIR$/musicPlayer_brief/src/main/java/fm/fulin/model/Song.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/musicPlayer_brief/src/main/java/fm/fulin/model/Subject.java" beforeDir="false" afterPath="$PROJECT_DIR$/musicPlayer_brief/src/main/java/fm/fulin/model/Subject.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/musicPlayer_brief/src/main/java/fm/fulin/service/SingerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/musicPlayer_brief/src/main/java/fm/fulin/service/SingerService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/musicPlayer_brief/src/main/java/fm/fulin/service/SongService.java" beforeDir="false" afterPath="$PROJECT_DIR$/musicPlayer_brief/src/main/java/fm/fulin/service/SongService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/musicPlayer_brief/src/main/java/fm/fulin/service/impl/SingerServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/musicPlayer_brief/src/main/java/fm/fulin/service/impl/SingerServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/musicPlayer_brief/src/main/java/fm/fulin/service/impl/SongServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/musicPlayer_brief/src/main/java/fm/fulin/service/impl/SongServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/musicPlayer_brief/src/main/java/fm/fulin/spider/SingerSongSpider.java" beforeDir="false" afterPath="$PROJECT_DIR$/musicPlayer_brief/src/main/java/fm/fulin/spider/SingerSongSpider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/musicPlayer_brief/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/musicPlayer_brief/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/musicPlayer_brief/src/main/resources/static/js/nextMusic.js" beforeDir="false" afterPath="$PROJECT_DIR$/musicPlayer_brief/src/main/resources/static/js/nextMusic.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/musicPlayer_brief/src/main/resources/static/js/userguide.js" beforeDir="false" afterPath="$PROJECT_DIR$/musicPlayer_brief/src/main/resources/static/js/userguide.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/musicPlayer_brief/src/main/resources/static/styles/all.css" beforeDir="false" afterPath="$PROJECT_DIR$/musicPlayer_brief/src/main/resources/static/styles/all.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/musicPlayer_brief/src/main/resources/static/styles/layout.css" beforeDir="false" afterPath="$PROJECT_DIR$/musicPlayer_brief/src/main/resources/static/styles/layout.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/musicPlayer_brief/src/main/resources/templates/layout.html" beforeDir="false" afterPath="$PROJECT_DIR$/musicPlayer_brief/src/main/resources/templates/layout.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/musicPlayer_brief/src/main/resources/templates/player.html" beforeDir="false" afterPath="$PROJECT_DIR$/musicPlayer_brief/src/main/resources/templates/player.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/musicPlayer_brief/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/musicPlayer_brief/target/classes/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/musicPlayer_brief/target/classes/fm/fulin/app/control/SingerTestControl.class" beforeDir="false" afterPath="$PROJECT_DIR$/musicPlayer_brief/target/classes/fm/fulin/app/control/SingerTestControl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/musicPlayer_brief/target/classes/fm/fulin/app/control/SongTestControl.class" beforeDir="false" afterPath="$PROJECT_DIR$/musicPlayer_brief/target/classes/fm/fulin/app/control/SongTestControl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/musicPlayer_brief/target/classes/fm/fulin/app/interceptor/UserInterceptor.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/musicPlayer_brief/target/classes/fm/fulin/model/CollectionViewModel.class" beforeDir="false" afterPath="$PROJECT_DIR$/musicPlayer_brief/target/classes/fm/fulin/model/CollectionViewModel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/musicPlayer_brief/target/classes/fm/fulin/model/Singer.class" beforeDir="false" afterPath="$PROJECT_DIR$/musicPlayer_brief/target/classes/fm/fulin/model/Singer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/musicPlayer_brief/target/classes/fm/fulin/model/Song.class" beforeDir="false" afterPath="$PROJECT_DIR$/musicPlayer_brief/target/classes/fm/fulin/model/Song.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/musicPlayer_brief/target/classes/fm/fulin/model/Subject.class" beforeDir="false" afterPath="$PROJECT_DIR$/musicPlayer_brief/target/classes/fm/fulin/model/Subject.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/musicPlayer_brief/target/classes/fm/fulin/service/SongService.class" beforeDir="false" afterPath="$PROJECT_DIR$/musicPlayer_brief/target/classes/fm/fulin/service/SongService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/musicPlayer_brief/target/classes/fm/fulin/service/impl/SingerServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/musicPlayer_brief/target/classes/fm/fulin/service/impl/SingerServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/musicPlayer_brief/target/classes/fm/fulin/service/impl/SongServiceImpl$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/musicPlayer_brief/target/classes/fm/fulin/service/impl/SongServiceImpl$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/musicPlayer_brief/target/classes/fm/fulin/service/impl/SongServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/musicPlayer_brief/target/classes/fm/fulin/service/impl/SongServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/musicPlayer_brief/target/classes/fm/fulin/spider/SingerSongSpider.class" beforeDir="false" afterPath="$PROJECT_DIR$/musicPlayer_brief/target/classes/fm/fulin/spider/SingerSongSpider.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/musicPlayer_brief/target/classes/static/js/nextMusic.js" beforeDir="false" afterPath="$PROJECT_DIR$/musicPlayer_brief/target/classes/static/js/nextMusic.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/musicPlayer_brief/target/classes/static/js/userguide.js" beforeDir="false" afterPath="$PROJECT_DIR$/musicPlayer_brief/target/classes/static/js/userguide.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/musicPlayer_brief/target/classes/static/styles/all.css" beforeDir="false" afterPath="$PROJECT_DIR$/musicPlayer_brief/target/classes/static/styles/all.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/musicPlayer_brief/target/classes/static/styles/layout.css" beforeDir="false" afterPath="$PROJECT_DIR$/musicPlayer_brief/target/classes/static/styles/layout.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/musicPlayer_brief/target/classes/templates/layout.html" beforeDir="false" afterPath="$PROJECT_DIR$/musicPlayer_brief/target/classes/templates/layout.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/musicPlayer_brief/target/classes/templates/player.html" beforeDir="false" afterPath="$PROJECT_DIR$/musicPlayer_brief/target/classes/templates/player.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/musicPlayer_brief/target/practice-0.0.1-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/musicPlayer_brief/target/practice-0.0.1-SNAPSHOT.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/musicPlayer_brief/target/practice-0.0.1-SNAPSHOT.jar.original" beforeDir="false" afterPath="$PROJECT_DIR$/musicPlayer_brief/target/practice-0.0.1-SNAPSHOT.jar.original" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/musicPlayer_brief" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 3
+}</component>
+  <component name="ProjectId" id="2e78BVpLGzwq3oxPnx0mwJCxlx2" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "Spring Boot.PracticeApplication.executor": "Run",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "master",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "D:/resource/毕设/musicPlayer_editing",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "configurable.group.appearance",
+    "spring.configuration.checksum": "8c40400c009918b5f10b73f9a0e47398",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RunManager">
+    <configuration name="PracticeApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="practice" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="fm.fulin.PracticeApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-fdfe4dae3a2d-intellij.indexing.shared.core-IU-243.22562.218" />
+        <option value="bundled-js-predefined-d6986cc7102b-deb605915726-JavaScript-IU-243.22562.218" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="ba6094e3-7627-4f07-a1e1-6e9213537b19" name="Changes" comment="" />
+      <created>1711244121816</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1711244121816</updated>
+      <workItem from="1711244124030" duration="4895000" />
+      <workItem from="1711256673240" duration="1575000" />
+      <workItem from="1711689690840" duration="185000" />
+      <workItem from="1711690134851" duration="735000" />
+      <workItem from="1711710415114" duration="6069000" />
+      <workItem from="1711890878609" duration="1756000" />
+      <workItem from="1711978393673" duration="171000" />
+      <workItem from="1713247576405" duration="13000" />
+      <workItem from="1713407593775" duration="202000" />
+      <workItem from="1714358063168" duration="12000" />
+      <workItem from="1718863208796" duration="68000" />
+      <workItem from="1719055230791" duration="66000" />
+      <workItem from="1719055344843" duration="728000" />
+      <workItem from="1731028700885" duration="1640000" />
+      <workItem from="1731031200445" duration="2000" />
+      <workItem from="1731031606649" duration="679000" />
+      <workItem from="1740913741574" duration="820000" />
+      <workItem from="1743474897069" duration="878000" />
+      <workItem from="1743475969368" duration="704000" />
+      <workItem from="1743991291256" duration="12230000" />
+      <workItem from="1744201338225" duration="842000" />
+      <workItem from="1744246304479" duration="3888000" />
+      <workItem from="1744540763468" duration="616000" />
+      <workItem from="1745805533778" duration="1509000" />
+      <workItem from="1746529663846" duration="1515000" />
+      <workItem from="1746684204875" duration="21346000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

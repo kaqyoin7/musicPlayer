@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="referrer" content="never" />
+    <title>Melodymate</title>
+    <link rel="stylesheet" href="/styles/layout.css" />
+  </head>
+  <body>
+    <div class="header">
+      <div class="top">
+        <div class="slogan"><span class="icon0"></span>An O Fulin Project</div>
+        <div class="img"></div>
+      </div>
+      <!--finish-->
+      <div class="bottom">
+        <div class="left">
+          <ul>
+            <li class="name"><!--<div class="icon"></div>-->FULIN</li>
+            <li class="search">✎</li>
+            <li><input type="search" placeholder="SEARCH" /></li>
+          </ul>
+        </div>
+        <div class="right">
+          <ul class="func">
+            <li>USE CASES ◢</li>
+            <li>EVENTS ◢</li>
+            <li>MARKETPLACE ◢</li>
+            <li>COMMUNITY ◢</li>
+            <li>BLOG</li>
+            <li>DOCS</li>
+            <li class="join">JOIN ◢</li>
+            <li class="login">LOG IN</li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <link rel="stylesheet" href="/styles/all.css" />
+        <div class="container" th:include="::content">首屏播放器</div>
+      </div>
+
+      <div class="footer">
+        <p class="beian">
+          &copy 2022 kaqyoin
+          <a class="a1" hreflang="京IC备案1242107号" href="#"
+            >京ICP备11027288号</a
+          >
+          网络视听许可证01111222号 京公网安备15877817
+          <a class="a2" hreflang="新出发京批字直接1395177号" href="#"
+            >新出发京批字直接1395177号</a
+          >
+        </p>
+        <p class="beian">
+          违法与不良信息举报 电话：7777777 邮箱：kaqyoin@163.com
+        </p>
+        <p class="beian">powered by kaqyoin / Borrowed from OpenStack</p>
+        <p class="adv">
+          xxx：ldsa@163.com SAO用户手册 新版说明 我要反馈 SAO中心
+        </p>
+      </div>
+    </div>
+  </body>
+</html>
