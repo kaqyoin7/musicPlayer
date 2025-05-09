@@ -50,8 +50,8 @@
               </div>
               <div class="action-buttons">
                 <button
-                  class="btn btn-sm btn-primary"
-                  th:onclick="'playSong(\'' + ${song.id} + '\')'"
+                  class="btn btn-sm btn-primary play-btn"
+                  th:data-song-id="${song.id}"
                 >
                   播放
                 </button>
@@ -74,8 +74,8 @@
               </div>
               <div class="action-buttons">
                 <button
-                  class="btn btn-sm btn-info"
-                  th:onclick="'viewSinger(\'' + ${singer.id} + '\')'"
+                  class="btn btn-sm btn-info view-btn"
+                  th:data-singer-id="${singer.id}"
                 >
                   查看详情
                 </button>

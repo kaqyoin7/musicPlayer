@@ -6,6 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="ba6094e3-7627-4f07-a1e1-6e9213537b19" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/musicPlayer_brief/musicPlayer_brief/src/main/java/fm/fulin/service/impl/SearchServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/musicPlayer_brief/musicPlayer_brief/src/main/java/fm/fulin/service/impl/SearchServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/musicPlayer_brief/musicPlayer_brief/src/main/resources/static/js/search-detail.js" beforeDir="false" afterPath="$PROJECT_DIR$/musicPlayer_brief/musicPlayer_brief/src/main/resources/static/js/search-detail.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/musicPlayer_brief/musicPlayer_brief/src/main/resources/static/js/search.js" beforeDir="false" afterPath="$PROJECT_DIR$/musicPlayer_brief/musicPlayer_brief/src/main/resources/static/js/search.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/musicPlayer_brief/musicPlayer_brief/target/classes/static/js/search-detail.js" beforeDir="false" afterPath="$PROJECT_DIR$/musicPlayer_brief/musicPlayer_brief/target/classes/static/js/search-detail.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/musicPlayer_brief/musicPlayer_brief/target/classes/static/js/search.js" beforeDir="false" afterPath="$PROJECT_DIR$/musicPlayer_brief/musicPlayer_brief/target/classes/static/js/search.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/player_log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/player_log.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -106,7 +111,7 @@
       <workItem from="1744540763468" duration="616000" />
       <workItem from="1745805533778" duration="1509000" />
       <workItem from="1746529663846" duration="1515000" />
-      <workItem from="1746684204875" duration="31738000" />
+      <workItem from="1746684204875" duration="32796000" />
     </task>
     <servers />
   </component>

@@ -36,7 +36,7 @@ class SearchManager {
                 this.searchTimeout = setTimeout(() => {
                     this.performSearch(query);
                 }, 300);
-            } else {
+     
                 this.searchSuggestions.classList.remove('active');
                 this.searchSuggestions.innerHTML = '';
             }
@@ -47,7 +47,26 @@ class SearchManager {
             if (e.key === 'Enter') {
                 const query = this.searchInput.value.trim();
                 if (query) {
-                    window.location.href = `/search/page?keyword=${encodeURIComponent(query)}`;
+                    window.location.href = `/search/detail?keyword=${encodeURIComponent(query)}&type=all&page=1`;
+                }
+            }
+        });
+
+        // 添加事件委托处理播放和查看按钮的点击
+        document.addEventListener('click', (e) => {
+            const playBtn = e.target.closest('.play-btn');
+            if (playBtn) {
+                const songId = playBtn.dataset.songId;
+                if (songId) {
+                    this.playSong(songId);
+                }
+            }
+
+            const viewBtn = e.target.closest('.view-btn');
+            if (viewBtn) {
+                const singerId = viewBtn.dataset.singerId;
+                if (singerId) {
+                    this.viewSinger(singerId);
                 }
             }
         });
@@ -55,7 +74,6 @@ class SearchManager {
 
     performSearch(query) {
         if (!query) {
-            this.searchSuggestions.classList.remove('active');
             this.searchSuggestions.innerHTML = '';
             return;
         }
@@ -97,7 +115,8 @@ class SearchManager {
                 `;
 
                 suggestionItem.addEventListener('click', () => {
-                    window.location.href = `/search/detail?keyword=${encodeURIComponent(song.name)}&type=song&page=1`;
+                    const keyword = this.searchInput.value.trim();
+                    window.location.href = `/search/detail?keyword=${encodeURIComponent(keyword)}&type=song&page=1`;
                 });
 
                 this.searchSuggestions.appendChild(suggestionItem);
@@ -119,7 +138,8 @@ class SearchManager {
                 `;
 
                 suggestionItem.addEventListener('click', () => {
-                    window.location.href = `/search/detail?keyword=${encodeURIComponent(singer.name)}&type=singer&page=1`;
+                    const keyword = this.searchInput.value.trim();
+                    window.location.href = `/search/detail?keyword=${encodeURIComponent(keyword)}&type=singer&page=1`;
                 });
 
                 this.searchSuggestions.appendChild(suggestionItem);
@@ -176,7 +196,7 @@ class SearchManager {
                     <p>歌手: ${song.singerIds ? song.singerIds.join(', ') : '未知'}</p>
                 </div>
                 <div class="action-buttons">
-                    <button class="btn btn-sm btn-primary" onclick="searchManager.playSong('${song.id}')">播放</button>
+                    <button class="btn btn-sm btn-primary play-btn" data-song-id="${song.id}">播放</button>
                 </div>
             </div>
         `;
@@ -190,7 +210,7 @@ class SearchManager {
                     <img src="${singer.avatar || ''}" alt="${singer.name}" class="singer-avatar">
                 </div>
                 <div class="action-buttons">
-                    <button class="btn btn-sm btn-info" onclick="searchManager.viewSinger('${singer.id}')">查看详情</button>
+                    <button class="btn btn-sm btn-info view-btn" data-singer-id="${singer.id}">查看详情</button>
                 </div>
             </div>
         `;
