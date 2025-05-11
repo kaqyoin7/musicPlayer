@@ -14,7 +14,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/musicPlayer_brief" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -46,7 +46,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "configurable.group.appearance",
+    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings",
     "spring.configuration.checksum": "8c40400c009918b5f10b73f9a0e47398",
     "vue.rearranger.settings.migration": "true"
   }
@@ -106,7 +106,9 @@
       <workItem from="1744540763468" duration="616000" />
       <workItem from="1745805533778" duration="1509000" />
       <workItem from="1746529663846" duration="1515000" />
-      <workItem from="1746684204875" duration="33700000" />
+      <workItem from="1746684204875" duration="34055000" />
+      <workItem from="1746866977206" duration="298000" />
+      <workItem from="1746970239754" duration="51000" />
     </task>
     <servers />
   </component>
