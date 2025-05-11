@@ -33,7 +33,12 @@
             </div>
             <div class="song-info">
               <h3 class="song-name" th:text="${song.name}"></h3>
-              <p class="singer-name" th:text="${song.singerIds}"></p>
+              <p
+                class="singer-name"
+                th:attr="data-singer-ids=${song.singerIds != null ? #strings.listJoin(song.singerIds, ',') : ''}"
+              >
+                加载中...
+              </p>
             </div>
             <div class="song-actions">
               <button class="play-btn" th:data-song-id="${song.id}">
@@ -66,30 +71,70 @@
       <!-- 分页 -->
       <div class="pagination" th:if="${totalPages > 1}">
         <ul>
-          <li th:class="${currentPage == 1 ? 'disabled' : ''}">
+          <!-- 上一页 -->
+          <li th:class="${currentPage == 1} ? 'disabled' : ''">
             <a
-              th:if="${currentPage > 1}"
-              th:href="@{/search/detail(keyword=${keyword},type=${type},page=${currentPage - 1})}"
-              >上一页</a
+              th:href="@{/search/detail(type=${type},keyword=${keyword},page=${currentPage - 1})}"
+              th:unless="${currentPage == 1}"
             >
-            <span th:unless="${currentPage > 1}">上一页</span>
+              <i class="fas fa-chevron-left"></i>
+            </a>
+            <span th:if="${currentPage == 1}">
+              <i class="fas fa-chevron-left"></i>
+            </span>
           </li>
+
+          <!-- 第一页 -->
+          <li th:if="${currentPage > 3}">
+            <a
+              th:href="@{/search/detail(type=${type},keyword=${keyword},page=1)}"
+              >1</a
+            >
+          </li>
+
+          <!-- 省略号 -->
+          <li th:if="${currentPage > 4}">
+            <span>...</span>
+          </li>
+
+          <!-- 页码按钮 -->
           <li
-            th:each="i : ${#numbers.sequence(1, totalPages)}"
-            th:class="${currentPage == i ? 'active' : ''}"
+            th:each="i : ${#numbers.sequence(
+            T(Math).max(1, currentPage - 2),
+            T(Math).min(totalPages, currentPage + 2)
+          )}"
+            th:class="${i == currentPage} ? 'active' : ''"
           >
             <a
-              th:href="@{/search/detail(keyword=${keyword},type=${type},page=${i})}"
+              th:href="@{/search/detail(type=${type},keyword=${keyword},page=${i})}"
               th:text="${i}"
             ></a>
           </li>
-          <li th:class="${currentPage == totalPages ? 'disabled' : ''}">
+
+          <!-- 省略号 -->
+          <li th:if="${currentPage < totalPages - 3}">
+            <span>...</span>
+          </li>
+
+          <!-- 最后一页 -->
+          <li th:if="${currentPage < totalPages - 2}">
             <a
-              th:if="${currentPage < totalPages}"
-              th:href="@{/search/detail(keyword=${keyword},type=${type},page=${currentPage + 1})}"
-              >下一页</a
+              th:href="@{/search/detail(type=${type},keyword=${keyword},page=${totalPages})}"
+              th:text="${totalPages}"
+            ></a>
+          </li>
+
+          <!-- 下一页 -->
+          <li th:class="${currentPage == totalPages} ? 'disabled' : ''">
+            <a
+              th:href="@{/search/detail(type=${type},keyword=${keyword},page=${currentPage + 1})}"
+              th:unless="${currentPage == totalPages}"
             >
-            <span th:unless="${currentPage < totalPages}">下一页</span>
+              <i class="fas fa-chevron-right"></i>
+            </a>
+            <span th:if="${currentPage == totalPages}">
+              <i class="fas fa-chevron-right"></i>
+            </span>
           </li>
         </ul>
       </div>

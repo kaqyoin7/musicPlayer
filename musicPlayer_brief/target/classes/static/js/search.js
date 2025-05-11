@@ -143,7 +143,7 @@ class SearchManager {
                 });
 
                 this.searchSuggestions.appendChild(suggestionItem);
-            });
+        });
         }
 
         // 显示建议框

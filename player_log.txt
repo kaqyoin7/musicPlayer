@@ -141,3 +141,4 @@
 [2025-05-09 22:06:04] 播放歌曲: It Ain't No Crime | 歌手: Keren Ann | 封面: https://img9.doubanio.com/view/subject/m/public/s2888095.jpg | 音源: https://mr3.doubanio.com/8ac45c97bb29be13eb5b305352eb9411/1/fm/song/p1381334_128k.mp3
 [2025-05-10 16:52:42] 播放歌曲: Damn | 歌手: Dust, Teairra Marie, Diamonds, Nicki Minaj | 封面: https://img9.doubanio.com/view/subject/m/public/s32723245.jpg | 音源: https://mr2.doubanio.com/cdbda919f70b44ecce2f0569cb137e08/6423eae4/0/fm/song/p4644058_128k.mp3
 [2025-05-10 16:52:44] 播放歌曲: New Dawn | 歌手: Benjamin Zephaniah, Selone, Pat D, Lady Paradox | 封面: https://img9.doubanio.com/view/subject/m/public/s32464716.jpg | 音源: https://mr2.doubanio.com/7bf2488b1121c68dd2a76cc80bc3a626/6423eea7/0/fm/song/p3320216_128k.mp3
+[2025-05-11 21:34:24] 播放歌曲: Budding Dancers | 歌手: Django Reinhardt | 封面: https://img9.doubanio.com/view/subject/m/public/s32719085.jpg | 音源: https://mr2.doubanio.com/90028bf865fd854eb39a4c2ea28485f2/6423eec5/0/fm/song/p3874253_128k.mp3
