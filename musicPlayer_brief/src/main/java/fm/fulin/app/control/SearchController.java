@@ -38,7 +38,7 @@ public class SearchController {
     @GetMapping("/api")
     @ResponseBody
     public SearchResult search(SearchRequest request) {
-        LOG.info("search request: {}", request);
+//        LOG.info("search request: {}", request);
         return searchService.search(request);
     }
 

@@ -29,7 +29,12 @@
         <div class="song-list">
           <div class="song-item" th:each="song : ${songs}">
             <div class="song-cover">
-              <img th:src="${song.cover}" alt="歌曲封面" />
+              <img
+                th:src="@{/api/image/proxy(url=${song.cover})}"
+                th:data-cover="${song.cover}"
+                alt="歌曲封面"
+                onerror="this.onerror=null; this.src='/images/default-cover.jpg';"
+              />
             </div>
             <div class="song-info">
               <h3 class="song-name" th:text="${song.name}"></h3>
@@ -54,14 +59,19 @@
         <div class="singer-list">
           <div class="singer-item" th:each="singer : ${singers}">
             <div class="singer-avatar">
-              <img th:src="${singer.avatar}" alt="歌手头像" />
+              <img
+                th:src="@{/api/image/proxy(url=${singer.avatar})}"
+                th:data-avatar="${singer.avatar}"
+                th:alt="${singer.name}"
+                onerror="this.onerror=null; this.src='/images/default-avatar.jpg';"
+              />
             </div>
             <div class="singer-info">
-              <h3 class="singer-name" th:text="${singer.name}"></h3>
+              <h3 th:text="${singer.name}"></h3>
             </div>
             <div class="singer-actions">
               <button class="view-btn" th:data-singer-id="${singer.id}">
-                <i class="fas fa-user"></i> 查看详情
+                查看详情
               </button>
             </div>
           </div>
