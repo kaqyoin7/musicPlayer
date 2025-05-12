@@ -3,21 +3,27 @@ package fm.fulin.app.control;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.client.ClientHttpRequest;
+import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.client.RequestCallback;
+import org.springframework.web.client.ResponseExtractor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.FileCopyUtils;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
 /**
- * 图片请求代理，绕开防盗链
+ * 图片请求代理，加快请求速度
  */
 @RestController
 @RequestMapping("/api/image")
@@ -49,26 +55,49 @@ public class ImageProxyController {
                 return new ResponseEntity<>(HttpStatus.FORBIDDEN);
             }
 
-            // 设置请求头
-            HttpHeaders headers = new HttpHeaders();
-            headers.set("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36");
-            headers.set("Referer", "https://music.douban.com/");
+            // 创建请求回调来设置请求头
+            RequestCallback requestCallback = new RequestCallback() {
+                @Override
+                public void doWithRequest(ClientHttpRequest request) {
+                    HttpHeaders headers = request.getHeaders();
+                    headers.set("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36");
+                    headers.set("Referer", "https://music.douban.com/");
+                    headers.set("Accept", "image/webp,image/apng,image/*,*/*;q=0.8");
+                    headers.set("Accept-Language", "zh-CN,zh;q=0.9,en;q=0.8");
+                    headers.set("Cache-Control", "no-cache");
+                    headers.set("Pragma", "no-cache");
+                }
+            };
 
-            // 使用RestTemplate获取图片
-            ResponseEntity<byte[]> response = restTemplate.getForEntity(url, byte[].class);
+            // 创建响应提取器
+            ResponseExtractor<ResponseEntity<byte[]>> responseExtractor = (ClientHttpResponse response) -> {
+                try {
+                    HttpHeaders headers = new HttpHeaders();
+                    headers.setContentType(response.getHeaders().getContentType());
+                    headers.setCacheControl("public, max-age=31536000"); // 缓存一年
+                    
+                    byte[] body = FileCopyUtils.copyToByteArray(response.getBody());
+                    return new ResponseEntity<>(body, headers, response.getStatusCode());
+                } catch (IOException e) {
+                    throw new RuntimeException("Error reading response body", e);
+                }
+            };
+
+            // 执行请求
+            ResponseEntity<byte[]> response = restTemplate.execute(
+                url,
+                org.springframework.http.HttpMethod.GET,
+                requestCallback,
+                responseExtractor
+            );
             
             if (response.getStatusCode() != HttpStatus.OK || response.getBody() == null) {
                 logger.error("Failed to fetch image from source: {}", url);
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
 
-            // 设置响应头
-            HttpHeaders responseHeaders = new HttpHeaders();
-            responseHeaders.setContentType(response.getHeaders().getContentType());
-            responseHeaders.setCacheControl("public, max-age=31536000"); // 缓存一年
-
             logger.info("Successfully proxied image from: {}", url);
-            return new ResponseEntity<>(response.getBody(), responseHeaders, HttpStatus.OK);
+            return response;
             
         } catch (Exception e) {
             logger.error("Error proxying image from {}: {}", url, e.getMessage(), e);
