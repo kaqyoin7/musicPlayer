@@ -44,12 +44,14 @@ async function playSong(songId) {
         
         // 将歌曲信息存储到localStorage
         localStorage.setItem('currentSong', JSON.stringify(song));
-        
+
+        // 跳转到首页
+        window.location.href = '/index';
+
         // 预加载音频和图片
         await preloadResources(song);
         
-        // 跳转到首页
-        window.location.href = '/index';
+
     } catch (error) {
         console.error('Error loading song:', error);
         alert('加载歌曲失败，请重试');
