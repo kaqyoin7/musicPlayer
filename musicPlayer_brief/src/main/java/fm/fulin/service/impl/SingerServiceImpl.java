@@ -52,7 +52,7 @@ public class SingerServiceImpl implements SingerService {
         }
 
         try {
-            LOG.info("Looking up singer with ID: {}", singerId);
+//            LOG.info("Looking up singer with ID: {}", singerId);
             // 使用Query和Criteria来查询
             String idString = singerId.replaceAll("[^0-9]", "");
 //            int idInt = Integer.parseInt(singerId);

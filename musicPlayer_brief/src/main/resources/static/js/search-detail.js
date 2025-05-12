@@ -1,6 +1,91 @@
 // 播放歌曲
-function playSong(songId) {
-    window.location.href = `/player/play/${songId}`;
+async function playSong(songId) {
+    try {
+        // 清理ID：移除所有非数字字符
+        const cleanId = String(songId).replace(/[^0-9]/g, '');
+        console.log('播放歌曲 - 原始ID:', songId, '清理后ID:', cleanId);
+        
+        if (!cleanId) {
+            throw new Error('Invalid song ID');
+        }
+
+        // 获取歌曲信息
+        console.log('正在请求歌曲信息，URL:', `/test/song/getById?id=${cleanId}`);
+        const response = await fetch(`/test/song/getById?id=${cleanId}`);
+        console.log('服务器响应状态:', response.status);
+        
+        if (!response.ok) {
+            const errorText = await response.text();
+            console.error('服务器错误响应:', errorText);
+            throw new Error(`HTTP error! status: ${response.status}, message: ${errorText}`);
+        }
+        
+        const responseText = await response.text();
+        console.log('服务器原始响应:', responseText);
+        
+        if (!responseText) {
+            throw new Error('Empty response from server');
+        }
+        
+        let song;
+        try {
+            song = JSON.parse(responseText);
+        } catch (e) {
+            console.error('JSON解析错误:', e);
+            throw new Error('Invalid JSON response from server');
+        }
+        
+        if (!song || !song.id) {
+            console.error('无效的歌曲数据:', song);
+            throw new Error('Invalid song data received');
+        }
+        
+        console.log('获取到的歌曲信息:', song);
+        
+        // 将歌曲信息存储到localStorage
+        localStorage.setItem('currentSong', JSON.stringify(song));
+        
+        // 预加载音频和图片
+        await preloadResources(song);
+        
+        // 跳转到首页
+        window.location.href = '/index';
+    } catch (error) {
+        console.error('Error loading song:', error);
+        alert('加载歌曲失败，请重试');
+    }
+}
+
+// 预加载音频和图片
+async function preloadResources(song) {
+    if (!song) return;
+    
+    return new Promise((resolve, reject) => {
+        // 预加载音频
+        const audio = new Audio();
+        audio.preload = 'auto';
+        
+        // 预加载封面图片
+        const img = new Image();
+        
+        // 音频加载完成
+        audio.oncanplaythrough = () => {
+            console.log('音频预加载完成:', song.name);
+            resolve();
+        };
+        
+        // 音频加载失败
+        audio.onerror = (error) => {
+            console.error('音频预加载失败:', error);
+            reject(error);
+        };
+        
+        // 开始加载音频
+        audio.src = song.url;
+        
+        // 预加载图片
+        img.src = song.cover;
+    });
 }
 
 // 查看歌手详情
@@ -34,26 +119,37 @@ async function getSingerInfo(singerId) {
 
 // 获取歌手名称
 async function getSingerNames(singerIds) {
-    console.log('开始获取歌手名称 - 歌手ID列表:', singerIds);
-    
-    if (!singerIds || singerIds.length === 0) {
-        console.log('没有歌手ID，返回空字符串');
-        return '';
-    }
+    if (!singerIds || singerIds.length === 0) return '';
     
     try {
         const singerPromises = singerIds.map(id => getSingerInfo(id));
         const singers = await Promise.all(singerPromises);
-        const names = singers
+        return singers
             .filter(singer => singer !== null)
             .map(singer => singer.name)
             .join(', ');
-        console.log('获取到的歌手名称:', names);
-        return names;
     } catch (error) {
         console.error('Error getting singer names:', error);
         return '';
     }
+}
+
+// 更新播放器信息
+async function updatePlayerInfo(song) {
+    if (!song) return;
+    
+    // 获取并显示歌手名称
+    const singerNames = await getSingerNames(song.singerIds);
+    
+    // 将完整的播放信息存储到localStorage
+    const playerInfo = {
+        name: song.name,
+        cover: song.cover,
+        url: song.url,
+        singerNames: singerNames || 'Unknown'
+    };
+    
+    localStorage.setItem('playerInfo', JSON.stringify(playerInfo));
 }
 
 // 更新歌手名称显示

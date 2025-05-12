@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
@@ -46,6 +47,23 @@ public class SongTestControl {
     @GetMapping(path = "/get")
     public Song testGet() {
         return songService.get("0");
+    }
+
+    @GetMapping(path = "/getById")
+    public Song getSongById(@RequestParam String id) {
+        LOG.info("Getting song by ID: {}", id);
+        try {
+            Song song = songService.get(id);
+            if (song == null) {
+                LOG.warn("No song found for ID: {}", id);
+                return null;
+            }
+            LOG.info("Found song: {}", song.getName());
+            return song;
+        } catch (Exception e) {
+            LOG.error("Error getting song by ID: " + id, e);
+            throw e;
+        }
     }
 
     @GetMapping(path = "/list")

@@ -48,7 +48,7 @@ public class SingerTestControl {
 
     @GetMapping(path = "/get")
     public Singer getSingerById(String id) {
-        LOG.info("Received request for singer ID: {}", id);
+//        LOG.info("Received request for singer ID: {}", id);
 
         if (id == null || id.trim().isEmpty()) {
             LOG.error("Invalid singer ID: null or empty");

@@ -1,12 +1,16 @@
 package fm.fulin.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 public class Song {
 
+    // 主键
+    //自定义业务id字段，避免mongoDB默认将_id字段错误映射到该变量，保证字段正确映射
+    @Field("id")
     private String id;
 
 //    /**

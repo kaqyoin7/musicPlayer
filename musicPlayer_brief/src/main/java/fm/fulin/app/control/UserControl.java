@@ -20,8 +20,8 @@ public class UserControl {
 
   @PostConstruct
   public void init() {
-    LOG.info("UserControl 启动啦");
-    LOG.info("userService 注入啦");
+//    LOG.info("UserControl 启动啦");
+//    LOG.info("userService 注入啦");
   }
 
   @GetMapping(path = "/login")        //登陆页面——待修改

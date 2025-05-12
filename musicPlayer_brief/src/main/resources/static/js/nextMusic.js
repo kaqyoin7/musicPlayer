@@ -177,6 +177,25 @@ document.addEventListener('DOMContentLoaded', function() {
     if (nextButton) {
         nextButton.addEventListener('click', nextMusic);
     }
+    
+    // 检查是否有当前歌曲
+    const songJson = localStorage.getItem('currentSong');
+    if (songJson) {
+        try {
+            const song = JSON.parse(songJson);
+            // 更新播放器信息
+            updatePlayerInfo(song);
+            // 清除currentSong，因为我们已经播放过了
+            localStorage.removeItem('currentSong');
+        } catch (error) {
+            console.error('Error loading song:', error);
+            // 如果加载失败，播放随机歌曲
+            nextMusic();
+        }
+    } else {
+        // 如果没有当前歌曲，播放随机歌曲
+        nextMusic();
+    }
 });
 
 // 监听播放结束事件
