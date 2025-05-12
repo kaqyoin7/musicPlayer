@@ -15,16 +15,27 @@ document.addEventListener('DOMContentLoaded', async function() {
         try {
             const song = JSON.parse(songJson);
             console.log('Parsed song data:', song);
-            // 更新播放器信息
-            await updatePlayerInfo(song);
-            // 清除localStorage中的歌曲信息, 因为它已经被加载和播放
-            localStorage.removeItem('currentSong');
+            
+            // 检查是否是用户选择的歌曲
+            if (song.userSelected) {
+                console.log('Playing user selected song:', song.name);
+                // 更新播放器信息
+                await updatePlayerInfo(song);
+                // 清除localStorage中的歌曲信息
+                localStorage.removeItem('currentSong');
+                // 开始预加载下一首随机歌曲
+                preloadNextSong();
+            } else {
+                // 如果不是用户选择的歌曲，播放随机歌曲
+                console.log('No user selected song, playing random song');
+                nextMusic();
+            }
         } catch (error) {
             console.error('Error loading song from localStorage:', error);
             // 如果加载失败，显示错误信息并尝试播放随机歌曲
             title.textContent = '加载失败';
             artist.textContent = '请重试';
-            nextMusic(); // Fallback to random song
+            nextMusic();
         }
     } else {
         console.log('No song in localStorage, playing random song');
@@ -162,16 +173,19 @@ async function nextMusic() {
     if (songJson) {
         try {
             const song = JSON.parse(songJson);
-            console.log('Found pending song in localStorage:', song);
-            await updatePlayerInfo(song);
-            localStorage.removeItem('currentSong');
-            return;
+            // 只有在不是用户选择的歌曲时才播放随机歌曲
+            if (!song.userSelected) {
+                console.log('Found pending song in localStorage:', song);
+                await updatePlayerInfo(song);
+                localStorage.removeItem('currentSong');
+                return;
+            }
         } catch (error) {
             console.error('Error loading pending song:', error);
         }
     }
 
-    // 如果没有待播放的歌曲，播放随机歌曲
+    // 如果没有待播放的歌曲或歌曲是用户选择的，播放随机歌曲
     try {
         const response = await fetch('/test/song/random');
         if (!response.ok) {

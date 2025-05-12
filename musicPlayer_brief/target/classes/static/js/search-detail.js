@@ -42,16 +42,15 @@ async function playSong(songId) {
         
         console.log('获取到的歌曲信息:', song);
         
+        // 设置一个标记，表示这是用户主动选择的歌曲
+        song.userSelected = true;
+        
         // 将歌曲信息存储到localStorage
         localStorage.setItem('currentSong', JSON.stringify(song));
-
+        
         // 跳转到首页
         window.location.href = '/index';
-
-        // 预加载音频和图片
-        await preloadResources(song);
         
-
     } catch (error) {
         console.error('Error loading song:', error);
         alert('加载歌曲失败，请重试');

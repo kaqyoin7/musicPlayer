@@ -23,7 +23,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * 图片请求代理，加快请求速度
+ * 图片请求代理 + cdn缓存，加快请求速度
  */
 @RestController
 @RequestMapping("/api/image")
