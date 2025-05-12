@@ -6,13 +6,17 @@ const artist = document.getElementById('artist');
 
 // 页面加载完成后初始化
 document.addEventListener('DOMContentLoaded', async function() {
+    console.log('DOM Content Loaded');
     // 从localStorage获取当前歌曲信息
     const songJson = localStorage.getItem('currentSong');
+    console.log('Retrieved from localStorage:', songJson);
+    
     if (songJson) {
         try {
             const song = JSON.parse(songJson);
+            console.log('Parsed song data:', song);
             // 更新播放器信息
-            await updatePlayerInfo(song); // This will play the song
+            await updatePlayerInfo(song);
             // 清除localStorage中的歌曲信息, 因为它已经被加载和播放
             localStorage.removeItem('currentSong');
         } catch (error) {
@@ -23,6 +27,7 @@ document.addEventListener('DOMContentLoaded', async function() {
             nextMusic(); // Fallback to random song
         }
     } else {
+        console.log('No song in localStorage, playing random song');
         // 如果没有歌曲信息，播放随机歌曲
         nextMusic();
     }
@@ -30,19 +35,82 @@ document.addEventListener('DOMContentLoaded', async function() {
 
 // 更新播放器信息
 async function updatePlayerInfo(song) {
-    if (!song) return;
+    if (!song) {
+        console.error('No song data provided to updatePlayerInfo');
+        return;
+    }
+    
+    console.log('Updating player info with song:', song);
     
     // 更新歌曲信息
     title.textContent = song.name;
     cover.src = song.cover;
     
+    // 处理singerIds格式问题
+    let singerIds = song.singerIds;
+    if (typeof singerIds === 'string') {
+        try {
+            singerIds = JSON.parse(singerIds);
+        } catch (e) {
+            console.error('Error parsing singerIds:', e);
+            singerIds = [];
+        }
+    }
+    
     // 获取并显示歌手名称
-    const singerNames = await getSingerNames(song.singerIds);
+    const singerNames = await getSingerNames(singerIds);
     artist.textContent = singerNames || '未知歌手';
     
-    // 设置音频源并播放
+    // 设置音频源
     player.src = song.url;
-    player.play();
+    console.log('Setting audio source to:', song.url);
+    
+    // 等待音频加载完成
+    await new Promise((resolve) => {
+        const handleLoadedData = () => {
+            console.log('Audio loaded successfully');
+            player.removeEventListener('loadeddata', handleLoadedData);
+            resolve();
+        };
+        player.addEventListener('loadeddata', handleLoadedData);
+        
+        // 设置超时处理
+        setTimeout(() => {
+            console.log('Audio loading timeout, proceeding anyway');
+            player.removeEventListener('loadeddata', handleLoadedData);
+            resolve();
+        }, 5000); // 5秒超时
+    });
+    
+    // 尝试播放
+    try {
+        // 添加用户交互事件监听器
+        const playOnInteraction = async () => {
+            try {
+                await player.play();
+                console.log('Successfully started playing:', song.name);
+                // 移除所有交互事件监听器
+                document.removeEventListener('click', playOnInteraction);
+                document.removeEventListener('keydown', playOnInteraction);
+                player.removeEventListener('click', playOnInteraction);
+            } catch (error) {
+                console.error('Error playing after interaction:', error);
+            }
+        };
+
+        // 添加多个交互事件监听器
+        document.addEventListener('click', playOnInteraction);
+        document.addEventListener('keydown', playOnInteraction);
+        player.addEventListener('click', playOnInteraction);
+
+        // 尝试自动播放
+        await player.play();
+        console.log('Successfully started playing:', song.name);
+    } catch (error) {
+        console.log('Autoplay failed, waiting for user interaction:', error);
+        // 自动播放失败时，显示提示信息
+        title.textContent = `${song.name} (点击播放)`;
+    }
 }
 
 // 获取歌手名称
@@ -52,7 +120,9 @@ async function getSingerNames(singerIds) {
     }
     
     try {
-        const singerPromises = singerIds.map(id => getSingerInfo(id));
+        // 确保singerIds是数组
+        const ids = Array.isArray(singerIds) ? singerIds : [singerIds];
+        const singerPromises = ids.map(id => getSingerInfo(id));
         const singers = await Promise.all(singerPromises);
         return singers
             .filter(singer => singer !== null)
@@ -67,11 +137,13 @@ async function getSingerNames(singerIds) {
 // 获取歌手信息
 async function getSingerInfo(singerId) {
     try {
+        // 清理ID，移除所有非数字字符
         const cleanId = String(singerId).replace(/[^0-9]/g, '');
         if (!cleanId) {
             console.error('Invalid singer ID:', singerId);
             return null;
         }
+        console.log('Fetching singer info for ID:', cleanId);
         const response = await fetch(`/test/singer/get?id=${cleanId}`);
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
@@ -85,6 +157,21 @@ async function getSingerInfo(singerId) {
 
 // 播放下一首
 async function nextMusic() {
+    // 检查是否有待播放的歌曲
+    const songJson = localStorage.getItem('currentSong');
+    if (songJson) {
+        try {
+            const song = JSON.parse(songJson);
+            console.log('Found pending song in localStorage:', song);
+            await updatePlayerInfo(song);
+            localStorage.removeItem('currentSong');
+            return;
+        } catch (error) {
+            console.error('Error loading pending song:', error);
+        }
+    }
+
+    // 如果没有待播放的歌曲，播放随机歌曲
     try {
         const response = await fetch('/test/song/random');
         if (!response.ok) {
@@ -100,4 +187,21 @@ async function nextMusic() {
 // 监听播放结束事件
 player.addEventListener('ended', function() {
     nextMusic();
-}, false); 
+}, false);
+
+// 添加页面可见性变化监听
+document.addEventListener('visibilitychange', function() {
+    if (document.visibilityState === 'visible') {
+        // 页面变为可见时，检查是否有待播放的歌曲
+        const songJson = localStorage.getItem('currentSong');
+        if (songJson) {
+            try {
+                const song = JSON.parse(songJson);
+                console.log('Found pending song after visibility change:', song);
+                updatePlayerInfo(song);
+            } catch (error) {
+                console.error('Error loading song after visibility change:', error);
+            }
+        }
+    }
+}); 

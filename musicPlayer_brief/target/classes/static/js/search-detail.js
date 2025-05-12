@@ -154,16 +154,16 @@ async function updatePlayerInfo(song) {
 
 // 更新歌手名称显示
 async function updateSingerNames() {
-    console.log('开始更新歌手名称显示');
+    // console.log('开始更新歌手名称显示');
     const singerNameElements = document.querySelectorAll('.singer-name');
-    console.log('找到的歌手名称元素数量:', singerNameElements.length);
+    // console.log('找到的歌手名称元素数量:', singerNameElements.length);
     
     for (const element of singerNameElements) {
         const singerIdsStr = element.dataset.singerIds || '';
-        console.log('元素中的歌手ID字符串:', singerIdsStr);
+        // console.log('元素中的歌手ID字符串:', singerIdsStr);
         
         const singerIds = singerIdsStr ? singerIdsStr.split(',').map(id => id.trim()) : [];
-        console.log('解析后的歌手ID数组:', singerIds);
+        // console.log('解析后的歌手ID数组:', singerIds);
         
         const singerNames = await getSingerNames(singerIds);
         console.log('设置歌手名称:', singerNames);
