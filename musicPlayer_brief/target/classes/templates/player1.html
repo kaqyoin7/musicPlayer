@@ -1,58 +1,75 @@
 <div id="player" class="player" th:fragment="player">
-    <link rel="stylesheet" href="/styles/audio.css">
-    <div class="expand">
-
-
-        <div class="player-container">
-            <div class="qrcode">
-                <img src="../assets/images/skate.png" alt="">
-                <div class="txt"> FULIN<br> 让好音乐继续 </div>
-            </div>
-            <div class="song-info">
-                <button class="owner" ></button>
-                <div id="title" class="title" >When The Ship Comes In</div>
-
-                <ul class="disp">
-                    <li>
-                        <div id="artist" class="artist" th:each="singerItem,sit: ${singers}">
-                            <span>Jessie J</span>
-
-                        </div>
-                    </li>
-                    <li>
-                        <div class="duration-options">
-                            <div class="duration"> </div>
-
-                            <div class="options">
-                                <button class="lyrics"></button>
-                                <button class="download"></button>
-                                <button class="share"></button>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-
-                <audio id="musicPlayer" autoplay controls="controls" th:src="  ${song.url}" ></audio>
-
-
-                <div class="options">
-                    <div><button class="star star-collect"></button><button class="trash"></button></div>
-                    <div>
-                        <button class="list"></button>
-                        <button class="random"></button>
-
-                        <button class="next" onclick="nextMusic()"></button>
-                    </div>
-                </div>
-                <div class="hint">
-                    <button class="btn-login">登录/注册</button><span>后FULINFM将永久保留你的收听历史与喜好</span>
-                </div>
-            </div>
-            <div class="song-cover"><img id="cover" src="https://img2.doubanio.com/view/subject/m/public/s4507763.jpg" alt=""></div>
+  <link rel="stylesheet" href="/styles/audio.css" />
+  <div class="expand">
+    <div class="player-container">
+      <div class="qrcode">
+        <img src="../assets/images/skate.png" alt="" />
+        <div class="txt">
+          FULIN<br />
+          让好音乐继续
         </div>
-        <button class="btn-shrink"></button>
+      </div>
+      <div class="song-info">
+        <button class="owner"></button>
+        <div id="title" class="title">When The Ship Comes In</div>
+
+        <ul class="disp">
+          <li>
+            <div
+              id="artist"
+              class="artist"
+              th:each="singerItem,sit: ${singers}"
+            >
+              <span>Jessie J</span>
+            </div>
+          </li>
+          <li>
+            <div class="duration-options">
+              <div class="duration"></div>
+
+              <div class="options">
+                <button class="lyrics"></button>
+                <button class="download"></button>
+                <button class="share"></button>
+              </div>
+            </div>
+          </li>
+        </ul>
+
+        <audio
+          id="musicPlayer"
+          autoplay
+          controls="controls"
+          th:src="  ${song.url}"
+        ></audio>
+
+        <div class="options">
+          <div>
+            <button class="star star-collect"></button
+            ><button class="trash"></button>
+          </div>
+          <div>
+            <button class="list"></button>
+            <button class="random"></button>
+
+            <button class="next" onclick="nextMusic()"></button>
+          </div>
+        </div>
+        <div class="hint">
+          <button class="btn-login">登录/注册</button
+          ><span>后FULINFM将永久保留你的收听历史与喜好</span>
+        </div>
+      </div>
+      <div class="song-cover">
+        <img
+          id="cover"
+          src="https://img2.doubanio.com/view/subject/m/public/s4507763.jpg"
+          alt=""
+        />
+      </div>
     </div>
+    <button class="btn-shrink"></button>
+  </div>
 
-    <script src="/js/player_artist.js"></script>
-
+  <script src="/js/player_artist.js"></script>
 </div>

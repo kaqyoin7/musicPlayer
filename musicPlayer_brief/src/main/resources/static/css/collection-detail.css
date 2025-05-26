@@ -1,0 +1,277 @@
+/* 全局变量 */
+:root {
+  --primary-color: #1db954;
+  --text-color: #333;
+  --bg-color: #fff;
+  --border-color: #e0e0e0;
+  --hover-color: #f5f5f5;
+  --shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --transition: all 0.3s ease;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  background-color: #f8f9fa;
+  color: var(--text-color);
+}
+
+/* 容器样式 */
+.collection-detail-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* 歌单头部样式 */
+.collection-header {
+  display: flex;
+  gap: 30px;
+  margin-bottom: 40px;
+  background: var(--bg-color);
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+}
+
+.collection-cover {
+  width: 300px;
+  height: 300px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 8px;
+  position: relative;
+  overflow: hidden;
+}
+
+.collection-hover-actions {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: var(--transition);
+}
+
+.collection-cover:hover .collection-hover-actions {
+  opacity: 1;
+}
+
+.collection-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.collection-name {
+  font-size: 2.5em;
+  margin: 0 0 20px 0;
+  color: var(--text-color);
+}
+
+.collection-description {
+  font-size: 1.1em;
+  color: #666;
+  margin-bottom: 20px;
+  line-height: 1.6;
+}
+
+.collection-stats {
+  color: #666;
+  font-size: 0.9em;
+}
+
+/* 歌曲列表样式 */
+.song-list {
+  background: var(--bg-color);
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.song-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.song-list-title {
+  font-size: 1.5em;
+  font-weight: 600;
+}
+
+.song-list-content {
+  padding: 0;
+}
+
+.song-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  border-bottom: 1px solid var(--border-color);
+  transition: var(--transition);
+}
+
+.song-item:hover {
+  background-color: var(--hover-color);
+}
+
+.song-info {
+  flex: 1;
+}
+
+.song-name {
+  font-size: 1.1em;
+  margin-bottom: 5px;
+}
+
+.song-artist {
+  font-size: 0.9em;
+  color: #666;
+}
+
+.song-actions {
+  display: flex;
+  gap: 10px;
+}
+
+/* 按钮样式 */
+.btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9em;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: var(--transition);
+}
+
+.btn i {
+  font-size: 1em;
+}
+
+.btn-play {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.btn-play:hover {
+  background-color: #1ed760;
+}
+
+.btn-add {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.btn-add:hover {
+  background-color: #1ed760;
+}
+
+.btn-remove {
+  background-color: #dc3545;
+  color: white;
+}
+
+.btn-remove:hover {
+  background-color: #c82333;
+}
+
+/* 模态框样式 */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+.modal-content {
+  position: relative;
+  background-color: var(--bg-color);
+  margin: 10% auto;
+  padding: 20px;
+  width: 80%;
+  max-width: 600px;
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.modal-header h2 {
+  margin: 0;
+}
+
+.close {
+  font-size: 1.5em;
+  cursor: pointer;
+  color: #666;
+}
+
+.close:hover {
+  color: var(--text-color);
+}
+
+.search-box {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.search-box input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  font-size: 1em;
+}
+
+.search-results {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .collection-header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .collection-cover {
+    width: 200px;
+    height: 200px;
+  }
+
+  .collection-name {
+    font-size: 2em;
+  }
+
+  .modal-content {
+    width: 95%;
+    margin: 5% auto;
+  }
+}

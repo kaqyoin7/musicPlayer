@@ -77,6 +77,12 @@
                         <button class="lyrics"></button>
                         <button class="download"></button>
                         <button class="share"></button>
+                        <button
+                          class="add-to-collection"
+                          onclick="showAddToCollectionModal()"
+                        >
+                          <i class="fas fa-plus"></i> 添加到歌单
+                        </button>
                       </div>
                     </div>
                   </li>
@@ -114,9 +120,38 @@
       </div>
     </div>
 
+    <!-- 添加到歌单模态框 -->
+    <div id="addToCollectionModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>添加到歌单</h2>
+          <button class="close-btn" onclick="hideAddToCollectionModal()">
+            &times;
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="collection-list">
+            <!-- 歌单列表将在这里动态显示 -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 加载提示 -->
+    <div id="loadingModal" class="modal">
+      <div class="modal-content loading-content">
+        <div class="loading-spinner"></div>
+        <p>处理中...</p>
+      </div>
+    </div>
+
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/js/player.js"></script>
     <script src="/js/search.js"></script>
+    <script th:inline="javascript">
+      // 传递当前播放歌曲ID到JavaScript
+      window.currentSongId = [[${song.id}]];
+    </script>
   </body>
 </html>

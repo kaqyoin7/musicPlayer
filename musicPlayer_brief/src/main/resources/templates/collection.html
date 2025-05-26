@@ -1,35 +1,196 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      th:replace="layout">
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>我的歌单</title>
+    <link rel="stylesheet" href="/css/collection.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div class="collection-container">
+      <!-- 头部 -->
+      <div class="collection-header">
+        <h1 class="collection-title">我的歌单</h1>
+        <!-- <div class="collection-actions">
+          <button class="btn btn-primary" onclick="showCreateModal()">
+            <i class="fas fa-plus"></i>
+            创建歌单
+          </button>
+        </div> -->
+      </div>
 
-<div th:fragment="content">
+      <!-- 搜索框 -->
+      <div class="search-container">
+        <input
+          type="text"
+          id="searchInput"
+          class="search-input"
+          placeholder="搜索歌单..."
+        />
+      </div>
 
-    <div class="song-sheet">
-        <div class="song-sheet-column" th:each="subjectColumnItem,scit: ${subjectColumns}">
-            <div class="sheet" th:each="subjectItem,sit: ${subjectColumnItem}">
-                <div class="cover">
-                    <img th:src="${subjectItem.subject.cover}" alt="">
-                    <div class="play-mask">
-                        <div class="mask"></div>
-                        <span class="play-icon"></span>
-                        <span class="playing-icon"></span>
-                    </div>
-                </div>
-                <div class="title">
-                    <a th:href="'/collectiondetail?subjectId=' + ${subjectItem.subject.id}"><span class="type" th:text="${subjectItem.subject.name}"></span></a>
-                </div>
-                <div class="subtitle" th:if="${subjectItem.singer != null}" th:text="${subjectItem.singer.name} + ' 创建'"></div>
-                <div class="song" th:if="${subjectItem.songs != null}" th:each="songItem,songit: ${subjectItem.songs}" th:text="${songItem.name}"></div>
-                <div class="extro-info">
-                    <span th:if="${subjectItem.subject.songIds != null}" th:text="'曲目：' + ${subjectItem.subject.songIds.size()}"></span>
-                    <span th:if="${subjectItem.subject.songIds == null}">曲目：0</span>
-                    <span class="gap"></span>
-                    <span class="extro-info">收藏：0</span>
-                </div>
+      <!-- 歌单列表 -->
+      <div class="collection-list">
+        <div
+          th:each="collection : ${collections}"
+          class="collection-item"
+          th:data-id="${collection.id}"
+          th:data-description="${collection.description}"
+        >
+          <div
+            class="collection-cover"
+            th:style="'background-image: url(' + ${collection.cover} + ')'"
+          >
+            <div class="collection-hover-actions">
+              <button class="btn btn-play" onclick="playCollection(this)">
+                <i class="fas fa-play"></i>
+              </button>
             </div>
+          </div>
+          <div class="collection-info">
+            <h3 class="collection-name" th:text="${collection.name}">
+              歌单名称
+            </h3>
+            <p
+              class="collection-description"
+              th:text="${collection.description ?: '暂无描述'}"
+            >
+              歌单描述
+            </p>
+            <div class="collection-meta">
+              <span
+                class="song-count"
+                th:text="${collection.songCount ?: 0} + ' 首歌曲'"
+                style="color: gray; font-size: 12px; margin-bottom: 15px"
+                >0 首歌曲</span
+              >
+              <div class="collection-buttons">
+                <!--                <a-->
+                <!--                  th:href="@{'/collection/' + ${collection.id}}"-->
+                <!--                  class="btn btn-enter"-->
+                <!--                >-->
+                <!--                  <i class="fas fa-sign-in-alt"></i>-->
+                <!--                </a>-->
+                <button class="btn btn-edit" onclick="editCollection(this)">
+                  <i class="fas fa-edit"></i>
+                </button>
+                <button class="btn btn-delete" onclick="deleteCollection(this)">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
 
-</div>
+    <!-- 创建歌单模态框 -->
+    <div id="createModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title">创建歌单</h3>
+          <span class="close" onclick="hideCreateModal()">&times;</span>
+        </div>
+        <div class="form-group">
+          <label for="collectionName">歌单名称</label>
+          <input type="text" id="collectionName" placeholder="请输入歌单名称" />
+        </div>
+        <div class="form-group">
+          <label for="collectionDescription">歌单描述</label>
+          <textarea
+            id="collectionDescription"
+            placeholder="请输入歌单描述"
+          ></textarea>
+        </div>
+        <div class="form-group">
+          <label for="collectionCover">歌单封面</label>
+          <div class="cover-upload">
+            <input
+              type="file"
+              id="collectionCover"
+              accept="image/*"
+              style="display: none"
+            />
+            <div
+              class="cover-preview"
+              onclick="document.getElementById('collectionCover').click()"
+            >
+              <i class="fas fa-image"></i>
+              <span>点击上传封面</span>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-cancel" onclick="hideCreateModal()">
+            取消
+          </button>
+          <button class="btn btn-primary" onclick="createCollection()">
+            <i class="fas fa-plus"></i>
+            创建
+          </button>
+        </div>
+      </div>
+    </div>
 
+    <!-- 编辑歌单模态框 -->
+    <div id="editModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title">编辑歌单</h3>
+          <span class="close" onclick="hideEditModal()">&times;</span>
+        </div>
+        <div class="form-group">
+          <label for="editCollectionName">歌单名称</label>
+          <input
+            type="text"
+            id="editCollectionName"
+            placeholder="请输入歌单名称"
+          />
+        </div>
+        <div class="form-group">
+          <label for="editCollectionDescription">歌单描述</label>
+          <textarea
+            id="editCollectionDescription"
+            placeholder="请输入歌单描述"
+          ></textarea>
+        </div>
+        <div class="form-group">
+          <label for="editCollectionCover">歌单封面</label>
+          <div class="cover-upload">
+            <input
+              type="file"
+              id="editCollectionCover"
+              accept="image/*"
+              style="display: none"
+            />
+            <div
+              class="cover-preview"
+              onclick="document.getElementById('editCollectionCover').click()"
+            >
+              <i class="fas fa-image"></i>
+              <span>点击更换封面</span>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-cancel" onclick="hideEditModal()">取消</button>
+          <button class="btn btn-primary" onclick="updateCollection()">
+            <i class="fas fa-save"></i>
+            保存
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 创建按钮 -->
+    <div class="create-collection" onclick="showCreateModal()">
+      <i class="fas fa-plus"></i>
+    </div>
+
+    <script src="/js/collection.js"></script>
+  </body>
 </html>

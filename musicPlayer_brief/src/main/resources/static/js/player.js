@@ -221,4 +221,99 @@ document.addEventListener('visibilitychange', function() {
             }
         }
     }
-}); 
+});
+
+// 显示添加到歌单模态框
+window.showAddToCollectionModal = function() {
+    const modal = document.getElementById('addToCollectionModal');
+    const collectionList = modal.querySelector('.collection-list');
+    
+    // 显示加载提示
+    showLoading();
+    
+    // 获取所有歌单
+    fetch('/collection')
+        .then(response => response.text())
+        .then(html => {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            const collections = doc.querySelectorAll('.collection-item');
+            
+            // 清空现有列表
+            collectionList.innerHTML = '';
+            
+            // 添加歌单到列表
+            collections.forEach(collection => {
+                const collectionId = collection.getAttribute('data-id');
+                const name = collection.querySelector('.collection-name').textContent;
+                const description = collection.querySelector('.collection-description').textContent;
+                const cover = collection.querySelector('.collection-cover').style.backgroundImage;
+                
+                const item = document.createElement('div');
+                item.className = 'collection-item';
+                item.innerHTML = `
+                    <img src="${cover.replace(/url\(['"](.+)['"]\)/, '$1')}" alt="${name}">
+                    <div class="collection-info">
+                        <h3 class="collection-name">${name}</h3>
+                        <p class="collection-description">${description}</p>
+                    </div>
+                `;
+                
+                item.onclick = () => addSongToCollection(collectionId);
+                collectionList.appendChild(item);
+            });
+            
+            // 隐藏加载提示
+            hideLoading();
+            modal.style.display = 'block';
+        })
+        .catch(error => {
+            console.error('Error fetching collections:', error);
+            hideLoading();
+            alert('获取歌单列表失败，请稍后重试');
+        });
+}
+
+// 隐藏添加到歌单模态框
+window.hideAddToCollectionModal = function() {
+    const modal = document.getElementById('addToCollectionModal');
+    modal.style.display = 'none';
+}
+
+// 添加歌曲到歌单
+window.addSongToCollection = function(collectionId) {
+    // 显示加载提示
+    showLoading();
+    
+    // 发送请求添加歌曲到歌单
+    fetch(`/collection/${collectionId}/add-song/${window.currentSongId}`, {
+        method: 'POST'
+    })
+    .then(response => response.json())
+    .then(result => {
+        hideLoading();
+        if (result) {
+            alert('添加成功！');
+            hideAddToCollectionModal();
+        } else {
+            alert('添加失败，请稍后重试');
+        }
+    })
+    .catch(error => {
+        console.error('Error adding song to collection:', error);
+        hideLoading();
+        alert('添加失败，请稍后重试');
+    });
+}
+
+// 显示加载提示
+window.showLoading = function() {
+    const loadingModal = document.getElementById('loadingModal');
+    loadingModal.style.display = 'block';
+}
+
+// 隐藏加载提示
+window.hideLoading = function() {
+    const loadingModal = document.getElementById('loadingModal');
+    loadingModal.style.display = 'none';
+} 

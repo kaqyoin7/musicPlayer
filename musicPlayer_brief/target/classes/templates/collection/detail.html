@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>歌单详情</title>
+    <link rel="stylesheet" href="/css/collection-detail.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div class="collection-detail-container">
+      <!-- 歌单头部信息 -->
+      <div class="collection-header">
+        <div
+          class="collection-cover"
+          th:style="'background-image: url(' + ${collection.cover} + ')'"
+        >
+          <div class="collection-hover-actions">
+            <button class="btn btn-play" onclick="playAll()">
+              <i class="fas fa-play"></i>
+              播放全部
+            </button>
+          </div>
+        </div>
+        <div class="collection-info">
+          <h1 class="collection-name" th:text="${collection.name}">歌单名称</h1>
+          <p class="collection-description" th:text="${collection.description}">
+            歌单描述
+          </p>
+          <div class="collection-stats">
+            <span
+              class="song-count"
+              th:text="${collection.songCount} + ' 首歌曲'"
+              >0 首歌曲</span
+            >
+          </div>
+        </div>
+      </div>
+
+      <!-- 歌曲列表 -->
+      <div class="song-list">
+        <div class="song-list-header">
+          <div class="song-list-title">歌曲列表</div>
+          <button class="btn btn-add" onclick="showAddSongModal()">
+            <i class="fas fa-plus"></i>
+            添加歌曲
+          </button>
+        </div>
+        <div class="song-list-content">
+          <div class="song-item" th:each="song : ${songs}">
+            <div class="song-info">
+              <div class="song-name" th:text="${song.name}">歌曲名称</div>
+              <div class="song-artist" th:text="${song.artist}">歌手</div>
+            </div>
+            <div class="song-actions">
+              <button
+                class="btn btn-play"
+                th:onclick="'playSong(\'' + ${song.id} + '\')'"
+              >
+                <i class="fas fa-play"></i>
+              </button>
+              <button
+                class="btn btn-remove"
+                th:onclick="'removeSong(\'' + ${song.id} + '\')'"
+              >
+                <i class="fas fa-trash"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 添加歌曲模态框 -->
+    <div id="addSongModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>添加歌曲</h2>
+          <span class="close" onclick="hideAddSongModal()">&times;</span>
+        </div>
+        <div class="modal-body">
+          <div class="search-box">
+            <input type="text" id="songSearchInput" placeholder="搜索歌曲..." />
+            <button class="btn btn-search" onclick="searchSongs()">
+              <i class="fas fa-search"></i>
+            </button>
+          </div>
+          <div class="search-results" id="searchResults">
+            <!-- 搜索结果将在这里动态显示 -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script th:inline="javascript">
+      const collectionId = [[${collection.id}]];
+    </script>
+    <script src="/js/collection-detail.js"></script>
+  </body>
+</html>

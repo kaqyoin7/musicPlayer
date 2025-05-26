@@ -12,6 +12,13 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -51,6 +58,10 @@
   }
 }</component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\resource\毕设\musicPlayer_editing\musicPlayer_brief\src\main\resources\static\js" />
+      <recent name="D:\resource\毕设\musicPlayer_editing\musicPlayer_brief\src\main\resources\templates" />
+    </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="fm.fulin.app.control" />
     </key>
@@ -109,6 +120,7 @@
       <workItem from="1746866977206" duration="298000" />
       <workItem from="1746970239754" duration="17399000" />
       <workItem from="1748242824391" duration="1974000" />
+      <workItem from="1748263153328" duration="12307000" />
     </task>
     <servers />
   </component>
