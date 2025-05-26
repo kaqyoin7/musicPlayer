@@ -183,10 +183,15 @@ document.addEventListener('DOMContentLoaded', function() {
     if (songJson) {
         try {
             const song = JSON.parse(songJson);
-            // 更新播放器信息
-            updatePlayerInfo(song);
-            // 清除currentSong，因为我们已经播放过了
-            localStorage.removeItem('currentSong');
+            if (song.userSelected) {
+                // 如果是用户选择的歌曲，只更新播放器信息，不触发预加载
+                updatePlayerInfo(song);
+                // 清除currentSong，因为我们已经播放过了
+                localStorage.removeItem('currentSong');
+            } else {
+                // 如果不是用户选择的歌曲，播放随机歌曲
+                nextMusic();
+            }
         } catch (error) {
             console.error('Error loading song:', error);
             // 如果加载失败，播放随机歌曲
@@ -200,14 +205,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // 监听播放结束事件
 player.addEventListener('ended', function () {
-    nextMusic();
+    // 检查是否有用户选择的歌曲
+    const songJson = localStorage.getItem('currentSong');
+    if (!songJson) {
+        nextMusic();
+    }
 }, false);
 
 // 监听播放开始事件，开始预加载下一首
 player.addEventListener('play', function() {
-    preloadNextSong();
+    // 检查当前播放的歌曲是否是用户选择的
+    const songJson = localStorage.getItem('currentSong');
+    if (!songJson) {
+        // 只有在播放随机歌曲时才预加载下一首
+        preloadNextSong();
+    }
 }, false);
-
-// 初始加载第一首歌
-nextMusic();
 

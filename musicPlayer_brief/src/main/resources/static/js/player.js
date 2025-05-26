@@ -23,8 +23,8 @@ document.addEventListener('DOMContentLoaded', async function() {
                 await updatePlayerInfo(song);
                 // 清除localStorage中的歌曲信息
                 localStorage.removeItem('currentSong');
-                // 开始预加载下一首随机歌曲
-                preloadNextSong();
+                // 移除播放开始事件监听器，防止触发随机歌曲预加载
+                player.removeEventListener('play', preloadNextSong);
             } else {
                 // 如果不是用户选择的歌曲，播放随机歌曲
                 console.log('No user selected song, playing random song');
@@ -173,9 +173,8 @@ async function nextMusic() {
     if (songJson) {
         try {
             const song = JSON.parse(songJson);
-            // 只有在不是用户选择的歌曲时才播放随机歌曲
-            if (!song.userSelected) {
-                console.log('Found pending song in localStorage:', song);
+            if (song.userSelected) {
+                // 如果是用户选择的歌曲，直接播放
                 await updatePlayerInfo(song);
                 localStorage.removeItem('currentSong');
                 return;
@@ -185,7 +184,7 @@ async function nextMusic() {
         }
     }
 
-    // 如果没有待播放的歌曲或歌曲是用户选择的，播放随机歌曲
+    // 如果没有待播放的歌曲或歌曲不是用户选择的，播放随机歌曲
     try {
         const response = await fetch('/test/song/random');
         if (!response.ok) {
@@ -200,7 +199,11 @@ async function nextMusic() {
 
 // 监听播放结束事件
 player.addEventListener('ended', function() {
-    nextMusic();
+    // 检查是否有用户选择的歌曲
+    const songJson = localStorage.getItem('currentSong');
+    if (!songJson) {
+        nextMusic();
+    }
 }, false);
 
 // 添加页面可见性变化监听

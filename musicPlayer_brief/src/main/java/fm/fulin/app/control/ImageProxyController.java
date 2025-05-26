@@ -45,7 +45,7 @@ public class ImageProxyController {
     @GetMapping("/proxy")
     public ResponseEntity<byte[]> proxyImage(@RequestParam String url) {
         try {
-            logger.info("Received image proxy request for URL: {}", url);
+//            logger.info("Received image proxy request for URL: {}", url);
             
             // 验证URL域名
             URL imageUrl = new URL(url);
