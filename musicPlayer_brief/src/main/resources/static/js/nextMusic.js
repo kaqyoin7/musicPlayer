@@ -150,20 +150,50 @@ async function updatePlayerInfo(song) {
 
 // 预加载下一首歌曲
 async function preloadNextSong() {
-    if (isPreloading) return;
-    
     try {
-        isPreloading = true;
-        const song = await getRandomSong();
-        if (song) {
-            await preloadResources(song);
-            preloadedSong = song;
-            console.log('预加载完成:', song.name);
+        const nextSong = await fetchNextSong();
+        if (nextSong) {
+            // 只更新下一首歌曲的信息，不更新当前歌曲ID
+            nextSongInfo = nextSong;
+            console.log('Preloaded next song:', nextSong.name);
+            
+            // 预加载音频
+            const audio = new Audio();
+            audio.src = nextSong.url;
+            audio.preload = 'metadata';
+            
+            // 预加载封面
+            if (nextSong.cover) {
+                const img = new Image();
+                img.src = nextSong.cover;
+            }
         }
     } catch (error) {
-        console.error('预加载失败:', error);
-    } finally {
-        isPreloading = false;
+        console.error('Error preloading next song:', error);
+    }
+}
+
+// 更新当前播放歌曲信息
+async function updateCurrentSongInfo(songId) {
+    try {
+        const response = await fetch(`/api/songs/${songId}`);
+        if (!response.ok) {
+            throw new Error('Failed to fetch song info');
+        }
+        const song = await response.json();
+        
+        // 更新当前歌曲信息
+        currentSongInfo = song;
+        console.log('Updated current song info:', song.name);
+        
+        // 更新当前歌曲ID
+        currentSongId = songId;
+        console.log('Updated current song ID:', currentSongId);
+        
+        // 预加载下一首歌曲
+        preloadNextSong();
+    } catch (error) {
+        console.error('Error updating current song info:', error);
     }
 }
 

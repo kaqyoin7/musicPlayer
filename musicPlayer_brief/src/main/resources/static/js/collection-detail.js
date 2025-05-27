@@ -166,28 +166,29 @@ async function searchSongs() {
 // 添加歌曲到歌单
 async function addSongToCollection(songId) {
     try {
-        const response = await fetch(`/collection/${collectionId}/add-song/${songId}`, {
+        // 确保使用正确的当前播放歌曲ID
+        const currentSongId = localStorage.getItem('currentSongId');
+        if (!currentSongId) {
+            console.error('No current song ID found');
+            return;
+        }
+
+        const response = await fetch(`/api/collections/${collectionId}/songs`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
-            }
+            },
+            body: JSON.stringify({ songId: currentSongId })
         });
 
         if (!response.ok) {
             throw new Error('Failed to add song to collection');
         }
 
-        const success = await response.json();
-        if (success) {
-            // 隐藏模态框并刷新页面
-            hideAddSongModal();
-            window.location.reload();
-        } else {
-            throw new Error('Server returned false');
-        }
+        // 刷新页面以显示新添加的歌曲
+        window.location.reload();
     } catch (error) {
-        console.error('Error adding song:', error);
-        alert('添加歌曲失败，请重试');
+        console.error('Error adding song to collection:', error);
     }
 }
 
