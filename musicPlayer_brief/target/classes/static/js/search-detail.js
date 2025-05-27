@@ -57,56 +57,6 @@ async function playSong(songId) {
     }
 }
 
-// // 预加载音频和图片
-// async function preloadResources(song) {
-//     if (!song) return;
-//
-//     return new Promise((resolve, reject) => {
-//         // 预加载音频
-//         const audio = new Audio();
-//         audio.preload = 'auto';
-//
-//         // 预加载封面图片
-//         const img = new Image();
-//
-//         // 音频加载完成
-//         audio.oncanplaythrough = () => {
-//             console.log('音频预加载完成:', song.name);
-//             resolve();
-//         };
-//
-//         // 音频加载失败
-//         audio.onerror = (error) => {
-//             console.error('音频预加载失败:', error);
-//             reject(error);
-//         };
-//
-//         // 开始加载音频
-//         audio.src = song.url;
-//
-//         // 使用代理URL加载图片
-//         const proxyUrl = `/api/image/proxy?url=${encodeURIComponent(song.cover)}`;
-//         img.src = proxyUrl;
-//
-//         // 图片加载完成或失败
-//         img.onload = () => {
-//             console.log('图片预加载完成:', song.name);
-//             // 更新页面上所有使用该图片的元素
-//             document.querySelectorAll(`img[data-cover="${song.cover}"]`).forEach(imgElement => {
-//                 imgElement.src = proxyUrl;
-//             });
-//         };
-//
-//         img.onerror = (error) => {
-//             console.error('图片预加载失败:', error);
-//             // 图片加载失败时使用默认图片
-//             const defaultCover = '/images/default-cover.jpg';
-//             document.querySelectorAll(`img[data-cover="${song.cover}"]`).forEach(imgElement => {
-//                 imgElement.src = defaultCover;
-//             });
-//         };
-//     });
-// }
 
 // 查看歌手详情
 function viewSinger(singerId) {
@@ -153,24 +103,6 @@ async function getSingerNames(singerIds) {
         return '';
     }
 }
-
-// // 更新播放器信息
-// async function updatePlayerInfo(song) {
-//     if (!song) return;
-//
-//     // 获取并显示歌手名称
-//     const singerNames = await getSingerNames(song.singerIds);
-//
-//     // 将完整的播放信息存储到localStorage
-//     const playerInfo = {
-//         name: song.name,
-//         cover: song.cover,
-//         url: song.url,
-//         singerNames: singerNames || 'Unknown'
-//     };
-//
-//     localStorage.setItem('playerInfo', JSON.stringify(playerInfo));
-// }
 
 // 更新歌手名称显示
 async function updateSingerNames() {

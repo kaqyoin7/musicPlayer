@@ -1,149 +1,240 @@
-// 模态框操作
-function showAddSongModal() {
-    document.getElementById('addSongModal').style.display = 'block';
-    document.body.style.overflow = 'hidden';
+// 播放歌曲
+async function playSong(songId) {
+    try {
+        // 清理ID：移除所有非数字字符
+        const cleanId = String(songId).replace(/[^0-9]/g, '');
+        console.log('播放歌曲 - 原始ID:', songId, '清理后ID:', cleanId);
+        
+        if (!cleanId) {
+            throw new Error('Invalid song ID');
+        }
+
+        // 获取歌曲信息
+        console.log('正在请求歌曲信息，URL:', `/test/song/getById?id=${cleanId}`);
+        const response = await fetch(`/test/song/getById?id=${cleanId}`);
+        console.log('服务器响应状态:', response.status);
+        
+        if (!response.ok) {
+            const errorText = await response.text();
+            console.error('服务器错误响应:', errorText);
+            throw new Error(`HTTP error! status: ${response.status}, message: ${errorText}`);
+        }
+        
+        const responseText = await response.text();
+        console.log('服务器原始响应:', responseText);
+        
+        if (!responseText) {
+            throw new Error('Empty response from server');
+        }
+        
+        let song;
+        try {
+            song = JSON.parse(responseText);
+        } catch (e) {
+            console.error('JSON解析错误:', e);
+            throw new Error('Invalid JSON response from server');
+        }
+        
+        if (!song || !song.id) {
+            console.error('无效的歌曲数据:', song);
+            throw new Error('Invalid song data received');
+        }
+        
+        console.log('获取到的歌曲信息:', song);
+        
+        // 设置一个标记，表示这是用户主动选择的歌曲
+        song.userSelected = true;
+        
+        // 将歌曲信息存储到localStorage
+        localStorage.setItem('currentSong', JSON.stringify(song));
+        
+        // 跳转到首页
+        window.location.href = '/index';
+        
+    } catch (error) {
+        console.error('Error loading song:', error);
+        alert('加载歌曲失败，请重试');
+    }
 }
 
-function hideAddSongModal() {
-    document.getElementById('addSongModal').style.display = 'none';
-    document.body.style.overflow = '';
-    document.getElementById('songSearchInput').value = '';
-    document.getElementById('searchResults').innerHTML = '';
-}
-
-// 播放功能
-function playSong(songId) {
-    // 跳转到播放页面并传递歌曲ID
-    window.location.href = `/player?songId=${songId}`;
-}
-
+// 播放全部歌曲
 function playAll() {
-    // 跳转到播放页面并传递歌单ID
-    window.location.href = `/player?collectionId=${collectionId}`;
+    // 获取歌单中的第一首歌曲
+    const firstSongItem = document.querySelector('.song-item');
+    if (firstSongItem) {
+        const songId = firstSongItem.querySelector('.btn-play').getAttribute('data-song-id');
+        if (songId) {
+            playSong(songId);
+        }
+    }
 }
 
-// 歌曲管理
-function removeSong(songId) {
-    if (confirm('确定要从歌单中移除这首歌吗？')) {
-        fetch(`/collection/${collectionId}/remove-song/${songId}`, {
+// 从歌单中移除歌曲
+async function removeSong(songId) {
+    if (!confirm('确定要从歌单中移除这首歌吗？')) {
+        return;
+    }
+
+    try {
+        const response = await fetch(`/collection/${collectionId}/remove-song/${songId}`, {
             method: 'POST',
             headers: {
-                'Accept': 'application/json'
+                'Content-Type': 'application/json'
             }
-        })
-        .then(response => {
-            if (!response.ok) {
-                return response.text().then(text => {
-                    throw new Error(text || '移除失败');
-                });
-            }
-            return response.json();
-        })
-        .then(data => {
-            showToast('移除成功');
-            location.reload();
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            showToast(error.message || '移除失败，请重试');
         });
-    }
-}
 
-// 搜索功能
-function searchSongs() {
-    const searchInput = document.getElementById('songSearchInput');
-    const searchTerm = searchInput.value.trim();
-    
-    if (searchTerm) {
-        fetch(`/song/search?name=${encodeURIComponent(searchTerm)}`, {
-            headers: {
-                'Accept': 'application/json'
-            }
-        })
-        .then(response => {
-            if (!response.ok) {
-                return response.text().then(text => {
-                    throw new Error(text || '搜索失败');
-                });
-            }
-            return response.json();
-        })
-        .then(songs => {
-            updateSearchResults(songs);
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            showToast(error.message || '搜索失败，请重试');
-        });
-    }
-}
-
-function updateSearchResults(songs) {
-    const searchResults = document.getElementById('searchResults');
-    searchResults.innerHTML = songs.map(song => `
-        <div class="song-item">
-            <div class="song-info">
-                <div class="song-name">${song.name}</div>
-                <div class="song-artist">${song.artist}</div>
-            </div>
-            <div class="song-actions">
-                <button class="btn btn-add" onclick="addSong('${song.id}')">
-                    <i class="fas fa-plus"></i>
-                    添加
-                </button>
-            </div>
-        </div>
-    `).join('');
-}
-
-function addSong(songId) {
-    fetch(`/collection/${collectionId}/add-song/${songId}`, {
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json'
-        }
-    })
-    .then(response => {
         if (!response.ok) {
-            return response.text().then(text => {
-                throw new Error(text || '添加失败');
-            });
+            throw new Error('Failed to remove song from collection');
         }
-        return response.json();
-    })
-    .then(data => {
-        showToast('添加成功');
-        hideAddSongModal();
-        location.reload();
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        showToast(error.message || '添加失败，请重试');
-    });
+
+        const success = await response.json();
+        if (success) {
+            // 刷新页面以更新歌单内容
+            window.location.reload();
+        } else {
+            throw new Error('Server returned false');
+        }
+    } catch (error) {
+        console.error('Error removing song:', error);
+        alert('移除歌曲失败，请重试');
+    }
 }
 
-// 提示框
-function showToast(message) {
-    const toast = document.createElement('div');
-    toast.className = 'toast';
-    toast.textContent = message;
-    document.body.appendChild(toast);
-    
-    setTimeout(() => {
-        toast.classList.add('show');
-    }, 100);
-    
-    setTimeout(() => {
-        toast.classList.remove('show');
-        setTimeout(() => {
-            document.body.removeChild(toast);
-        }, 300);
-    }, 3000);
+// 显示添加歌曲模态框
+function showAddSongModal() {
+    const modal = document.getElementById('addSongModal');
+    if (modal) {
+        modal.style.display = 'block';
+    }
 }
 
-// 事件监听
+// 隐藏添加歌曲模态框
+function hideAddSongModal() {
+    const modal = document.getElementById('addSongModal');
+    if (modal) {
+        modal.style.display = 'none';
+    }
+}
+
+// 搜索歌曲
+async function searchSongs() {
+    const searchInput = document.getElementById('songSearchInput');
+    const searchResults = document.getElementById('searchResults');
+    
+    if (!searchInput || !searchResults) return;
+    
+    const query = searchInput.value.trim();
+    if (!query) return;
+
+    try {
+        const response = await fetch(`/test/song/search?name=${encodeURIComponent(query)}`);
+        if (!response.ok) {
+            throw new Error('Search failed');
+        }
+
+        const songs = await response.json();
+        
+        // 清空搜索结果
+        searchResults.innerHTML = '';
+        
+        if (songs.length === 0) {
+            searchResults.innerHTML = '<div class="no-results">没有找到相关歌曲</div>';
+            return;
+        }
+
+        // 显示搜索结果
+        songs.forEach(song => {
+            const songElement = document.createElement('div');
+            songElement.className = 'search-result-item';
+            songElement.innerHTML = `
+                <div class="song-info">
+                    <div class="song-name">${song.name}</div>
+                    <div class="song-artist">${song.singerIds ? song.singerIds.join(', ') : '未知歌手'}</div>
+                </div>
+                <button class="btn btn-add" onclick="addSongToCollection('${song.id}')">
+                    <i class="fas fa-plus"></i>
+                </button>
+            `;
+            searchResults.appendChild(songElement);
+        });
+    } catch (error) {
+        console.error('Error searching songs:', error);
+        searchResults.innerHTML = '<div class="error">搜索失败，请重试</div>';
+    }
+}
+
+// 添加歌曲到歌单
+async function addSongToCollection(songId) {
+    try {
+        const response = await fetch(`/collection/${collectionId}/add-song/${songId}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to add song to collection');
+        }
+
+        const success = await response.json();
+        if (success) {
+            // 隐藏模态框并刷新页面
+            hideAddSongModal();
+            window.location.reload();
+        } else {
+            throw new Error('Server returned false');
+        }
+    } catch (error) {
+        console.error('Error adding song:', error);
+        alert('添加歌曲失败，请重试');
+    }
+}
+
+// 页面加载完成后初始化
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('页面加载完成，开始初始化');
+    
+    // 处理所有歌曲封面图片
+    document.querySelectorAll('.song-cover img').forEach(img => {
+        const originalSrc = img.src;
+        if (originalSrc) {
+            img.dataset.cover = originalSrc;
+            // 检查原始URL是否已经是代理URL
+            if (originalSrc.startsWith('/api/image/proxy')) {
+                return; // 如果已经是代理URL，则跳过处理
+            }
+            // 确保URL是完整的，如果不是则添加域名
+            let fullUrl = originalSrc;
+            if (!originalSrc.startsWith('http')) {
+                fullUrl = window.location.origin + originalSrc;
+            }
+            const proxyUrl = `/api/image/proxy?url=${encodeURIComponent(fullUrl)}`;
+            img.src = proxyUrl;
+            
+            // 添加图片加载失败处理
+            img.onerror = () => {
+                console.error('图片加载失败:', originalSrc);
+                img.src = '/images/default-cover.jpg';
+            };
+        }
+    });
+
+    // 为歌曲列表项添加动画效果
+    const songItems = document.querySelectorAll('.song-item');
+    songItems.forEach((item, index) => {
+        item.style.animationDelay = `${index * 0.1}s`;
+        item.classList.add('fade-in');
+    });
+
+    // 点击模态框外部关闭模态框
+    window.onclick = function(event) {
+        const modal = document.getElementById('addSongModal');
+        if (event.target === modal) {
+            hideAddSongModal();
+        }
+    };
+
     // 搜索框回车事件
     const searchInput = document.getElementById('songSearchInput');
     if (searchInput) {
@@ -153,11 +244,4 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
-    
-    // 点击模态框外部关闭
-    window.addEventListener('click', function(e) {
-        if (e.target.classList.contains('modal')) {
-            hideAddSongModal();
-        }
-    });
 }); 

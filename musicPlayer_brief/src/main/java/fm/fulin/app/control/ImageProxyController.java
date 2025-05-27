@@ -96,7 +96,7 @@ public class ImageProxyController {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
 
-            logger.info("Successfully proxied image from: {}", url);
+//            logger.info("Successfully proxied image from: {}", url);
             return response;
             
         } catch (Exception e) {
