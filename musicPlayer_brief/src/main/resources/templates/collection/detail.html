@@ -14,15 +14,17 @@
     <div class="collection-detail-container">
       <!-- 歌单头部信息 -->
       <div class="collection-header">
-        <div
-          class="collection-cover"
-          th:style="'background-image: url(' + ${collection.cover} + ')'"
-        >
-          <div class="collection-hover-actions">
-            <button class="btn btn-play" onclick="playAll()">
-              <i class="fas fa-play"></i>
-              播放全部
-            </button>
+        <div class="collection-cover-wrapper">
+          <div
+            class="collection-cover"
+            th:style="'background-image: url(' + ${collection.cover} + ')'"
+          >
+            <div class="collection-hover-actions">
+              <button class="btn btn-play" onclick="playAll()">
+                <i class="fas fa-play"></i>
+                播放全部
+              </button>
+            </div>
           </div>
         </div>
         <div class="collection-info">
@@ -51,20 +53,39 @@
         </div>
         <div class="song-list-content">
           <div class="song-item" th:each="song : ${songs}">
+            <div class="song-cover">
+              <img
+                th:src="@{/api/image/proxy(url=${song.cover})}"
+                th:data-cover="${song.cover}"
+                alt="歌曲封面"
+                onerror="this.onerror=null; this.src='/images/default-cover.jpg';"
+              />
+              <div class="song-cover-hover">
+                <button
+                  class="btn btn-play"
+                  th:data-song-id="${song.id}"
+                  onclick="playSong(this.getAttribute('data-song-id'))"
+                >
+                  <i class="fas fa-play"></i>
+                </button>
+              </div>
+            </div>
             <div class="song-info">
               <div class="song-name" th:text="${song.name}">歌曲名称</div>
-              <div class="song-artist" th:text="${song.artist}">歌手</div>
+              <div class="song-artist">
+                <span th:each="singerId, singerStat : ${song.singerIds}">
+                  <span
+                    th:text="${singerMap.get(singerId) != null ? singerMap.get(singerId).name : '未知歌手'}"
+                  ></span>
+                  <span th:unless="${singerStat.last}">, </span>
+                </span>
+              </div>
             </div>
             <div class="song-actions">
               <button
-                class="btn btn-play"
-                th:onclick="'playSong(\'' + ${song.id} + '\')'"
-              >
-                <i class="fas fa-play"></i>
-              </button>
-              <button
                 class="btn btn-remove"
-                th:onclick="'removeSong(\'' + ${song.id} + '\')'"
+                th:data-song-id="${song.id}"
+                onclick="removeSong(this.getAttribute('data-song-id'))"
               >
                 <i class="fas fa-trash"></i>
               </button>

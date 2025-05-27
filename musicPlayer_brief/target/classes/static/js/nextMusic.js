@@ -13,7 +13,7 @@ async function getSingerInfo(singerId) {
     try {
         // 清理ID：移除所有非数字字符
         const cleanId = String(singerId).replace(/[^0-9]/g, '');
-        console.log("cleanID:"+cleanId)
+        console.log("cleanID_singer:"+cleanId)
         if (!cleanId) {
             console.error('Invalid singer ID:', singerId);
             return null;
@@ -89,6 +89,18 @@ async function getRandomSong() {
             throw new Error('Network response was not ok');
         }
         const song = await response.json();
+        console.log("song info: " + JSON.stringify(song));
+        
+        // 更新当前歌曲ID
+        if (song && song.id) {
+            window.currentSongId = song.id;
+            // 更新音频元素的data-song-id属性
+            const audioElement = document.getElementById('musicPlayer');
+            if (audioElement) {
+                audioElement.setAttribute('data-song-id', song.id);
+            }
+            console.log("Updated current song ID:", window.currentSongId);
+        }
         return song;
     } catch (error) {
         console.error('Error fetching random song:', error);
