@@ -196,27 +196,17 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('页面加载完成，开始初始化');
     
     // 处理所有歌曲封面图片
-    document.querySelectorAll('.song-cover img').forEach(img => {
-        const originalSrc = img.src;
-        if (originalSrc) {
-            img.dataset.cover = originalSrc;
-            // 检查原始URL是否已经是代理URL
-            if (originalSrc.startsWith('/api/image/proxy')) {
-                return; // 如果已经是代理URL，则跳过处理
+    document.querySelectorAll('.song-cover').forEach(cover => {
+        const style = cover.getAttribute('style');
+        if (style && style.includes('background-image')) {
+            const urlMatch = style.match(/url\('([^']+)'\)/);
+            if (urlMatch && urlMatch[1]) {
+                const originalUrl = urlMatch[1];
+                if (!originalUrl.includes('/api/image/proxy')) {
+                    const proxyUrl = `/api/image/proxy?url=${encodeURIComponent(originalUrl)}`;
+                    cover.style.backgroundImage = `url('${proxyUrl}')`;
+                }
             }
-            // 确保URL是完整的，如果不是则添加域名
-            let fullUrl = originalSrc;
-            if (!originalSrc.startsWith('http')) {
-                fullUrl = window.location.origin + originalSrc;
-            }
-            const proxyUrl = `/api/image/proxy?url=${encodeURIComponent(fullUrl)}`;
-            img.src = proxyUrl;
-            
-            // 添加图片加载失败处理
-            img.onerror = () => {
-                console.error('图片加载失败:', originalSrc);
-                img.src = '/images/default-cover.jpg';
-            };
         }
     });
 

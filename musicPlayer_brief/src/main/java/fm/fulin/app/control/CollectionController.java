@@ -65,11 +65,13 @@ public class CollectionController {
             }
         });
 
-        // 设置歌单封面为最新加入歌曲的封面
-        if (!songs.isEmpty()) {
+        // 只有当歌单没有封面且有歌曲时，才设置最新歌曲的封面
+        if ((collection.getCover() == null || collection.getCover().isEmpty()) && !songs.isEmpty()) {
             Song latestSong = songs.get(songs.size() - 1);
             if (latestSong.getCover() != null && !latestSong.getCover().isEmpty()) {
                 collection.setCover(latestSong.getCover());
+                // 更新歌单信息到数据库
+                collectionService.updateCollection(collection);
             }
         }
         

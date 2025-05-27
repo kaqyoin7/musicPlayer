@@ -17,7 +17,8 @@
         <div class="collection-cover-wrapper">
           <div
             class="collection-cover"
-            th:style="'background-image: url(' + ${collection.cover} + ')'"
+            th:style="'background-image: url(' + @{/api/image/proxy(url=${collection.cover})} + ')'"
+            onerror="this.style.backgroundImage='url(/images/default-cover.jpg)'"
           >
             <div class="collection-hover-actions">
               <button class="btn btn-play" onclick="playAll()">
@@ -53,13 +54,11 @@
         </div>
         <div class="song-list-content">
           <div class="song-item" th:each="song : ${songs}">
-            <div class="song-cover">
-              <img
-                th:src="@{/api/image/proxy(url=${song.cover})}"
-                th:data-cover="${song.cover}"
-                alt="歌曲封面"
-                onerror="this.onerror=null; this.src='/images/default-cover.jpg';"
-              />
+            <div
+              class="song-cover"
+              th:style="'background-image: url(' + @{/api/image/proxy(url=${song.cover})} + ')'"
+              onerror="this.style.backgroundImage='url(/images/default-cover.jpg)'"
+            >
               <div class="song-cover-hover">
                 <button
                   class="btn btn-play"

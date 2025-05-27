@@ -43,7 +43,8 @@
         >
           <div
             class="collection-cover"
-            th:style="'background-image: url(' + ${collection.cover} + ')'"
+            th:style="'background-image: url(' + @{/api/image/proxy(url=${collection.cover})} + ')'"
+            onerror="this.style.backgroundImage='url(/images/default-cover.jpg)'"
           >
             <div class="collection-hover-actions">
               <button class="btn btn-play" onclick="playCollection(this)">
