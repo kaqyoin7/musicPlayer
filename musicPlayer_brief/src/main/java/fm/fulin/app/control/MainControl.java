@@ -127,4 +127,9 @@ public String index(Model model) {
         mhzVO.setTitle(title);
         mhzViewModels.add(mhzVO);
     }
+
+    @GetMapping("gen")
+    public String generator(){
+    return "music_generator";
+    }
 }

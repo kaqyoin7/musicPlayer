@@ -166,29 +166,47 @@ async function searchSongs() {
 // 添加歌曲到歌单
 async function addSongToCollection(songId) {
     try {
-        // 确保使用正确的当前播放歌曲ID
-        const currentSongId = localStorage.getItem('currentSongId');
-        if (!currentSongId) {
-            console.error('No current song ID found');
-            return;
+        // 首先尝试从 localStorage 获取当前播放的歌曲信息
+        const currentSongJson = localStorage.getItem('currentSong');
+        let songIdToAdd;
+
+        if (currentSongJson) {
+            // 如果存在 currentSong，使用其中的 ID
+            const currentSong = JSON.parse(currentSongJson);
+            songIdToAdd = currentSong.id;
+            console.log('Using song ID from currentSong:', songIdToAdd);
+        } else {
+            // 如果不存在 currentSong，尝试使用传入的 songId
+            songIdToAdd = songId;
+            console.log('Using provided song ID:', songIdToAdd);
         }
 
-        const response = await fetch(`/api/collections/${collectionId}/songs`, {
+        if (!songIdToAdd) {
+            throw new Error('No valid song ID available');
+        }
+
+        const response = await fetch(`/collection/${collectionId}/add-song/${songIdToAdd}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ songId: currentSongId })
+            }
         });
 
         if (!response.ok) {
             throw new Error('Failed to add song to collection');
         }
 
-        // 刷新页面以显示新添加的歌曲
-        window.location.reload();
+        const success = await response.json();
+        if (success) {
+            // 隐藏模态框并刷新页面
+            hideAddSongModal();
+            window.location.reload();
+        } else {
+            throw new Error('Server returned false');
+        }
     } catch (error) {
         console.error('Error adding song to collection:', error);
+        alert('添加歌曲失败，请重试');
     }
 }
 

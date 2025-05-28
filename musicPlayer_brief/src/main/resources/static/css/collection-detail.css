@@ -206,7 +206,7 @@ body {
 .song-info {
   flex: 1;
   min-width: 0;
-  padding-right: 20px;
+  padding-left: 20px;
 }
 
 .song-name {

@@ -109,3 +109,34 @@
     transform: rotate(360deg);
   }
 }
+
+.lyrics,
+.add-to-collection {
+  width: 24px;
+  height: 24px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: 0;
+  margin: 0 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  transition: color 0.3s ease;
+}
+
+.lyrics:hover,
+.add-to-collection:hover {
+  color: var(--primary-color);
+}
+
+.lyrics i,
+.add-to-collection i {
+  font-size: 14px;
+  width: 14px;
+  height: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
